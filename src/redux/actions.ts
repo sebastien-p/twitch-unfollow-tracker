@@ -1,6 +1,6 @@
 import { Action as ReduxAction } from 'redux';
 
-import { User } from './store';
+import { User, State } from './store';
 
 export type Action<
   Type,
@@ -17,7 +17,8 @@ export type Return<Type extends ActionCreator<any, any>> = ReturnType<Type>;
 
 export enum Types {
   Login = '[user] login',
-  Logout = '[user] logout'
+  Logout = '[user] logout',
+  LoadUnfollowers = '[unfollowers] load'
 }
 
 export const login: ActionCreator<Types.Login, NonNullable<User>> = user => ({
@@ -29,4 +30,13 @@ export const logout: ActionCreator<Types.Logout> = () => ({
   type: Types.Logout
 });
 
+export const loadUnfollowers: ActionCreator<
+  Types.LoadUnfollowers,
+  Pick<State, 'unfollowers'>
+> = unfollowers => ({
+  type: Types.LoadUnfollowers,
+  ...unfollowers
+});
+
 export type UserActions = Return<typeof login> | Return<typeof logout>;
+export type UnfollowersActions = Return<typeof loadUnfollowers>;

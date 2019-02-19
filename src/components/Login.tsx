@@ -3,15 +3,15 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { object, string } from 'yup';
 
-import { login } from '../redux/thunks';
 import { User, State } from '../redux/store';
+import { login } from '../redux/thunks';
 import { Field } from './Field';
 import { Form } from './Form';
 
 export type FormValues = Pick<NonNullable<User>, 'clientId' | 'name'>;
 
 type Props = {
-  isLoggedIn: boolean;
+  user: User;
   login(formValues: FormValues): void;
 };
 
@@ -27,12 +27,12 @@ class PureLogin extends Component<Props> {
   });
 
   render(): JSX.Element {
-    const { isLoggedIn, login } = this.props;
+    const { user, login } = this.props;
 
-    return isLoggedIn ? <Redirect to='/'/> : (
+    return user ? <Redirect to='/'/> : (
       <Form
+        initialValues={user || this.initialValues}
         validationSchema={this.validationSchema}
-        initialValues={this.initialValues}
         onSubmit={login}>
         <Field name='clientId'>Client ID</Field>
         <Field name='name'>User name</Field>
@@ -41,11 +41,11 @@ class PureLogin extends Component<Props> {
   }
 }
 export const Login = connect<
-  Pick<Props, 'isLoggedIn'>,
+  Pick<Props, 'user'>,
   Pick<Props, 'login'>,
   {},
   State
 >(
-  ({ user }) => ({ isLoggedIn: !!user }), // DRY
+  ({ user }) => ({ user }), // DRY
   { login }
 )(PureLogin);
