@@ -1,26 +1,46 @@
-import { Reducer } from 'redux';
+import { Reducer as ReduxReducer } from 'redux';
 
-import { Follower } from '../services/database';
-import { Types, UserActions, UnfollowersActions } from './actions';
-import { User } from './store';
+import {
+  Types,
+  Action,
+  UserActions,
+  FollowersActions,
+  UnfollowersActions
+} from './actions';
 
-export const user: Reducer<User, UserActions> = (state = null, action) => {
+import { State } from './store';
+
+type Reducer<
+  T extends keyof State,
+  U extends Action<Types, T>
+> = ReduxReducer<State[T], ReturnType<U>>;
+
+export const user: Reducer<'user', UserActions> = (
+  state = null,
+  action
+) => {
   switch (action.type) {
-    case Types.Login: {
-      const { type, ...user } = action;
-      return user;
-    }
-    case Types.Logout: return null;
+    case Types.SetUser: return action.user;
     default: return state;
   }
 }
 
-export const unfollowers: Reducer<Follower[], UnfollowersActions> = (
+export const followers: Reducer<'followers', FollowersActions> = (
   state = [],
   action
 ) => {
   switch (action.type) {
-    case Types.LoadUnfollowers: return action.unfollowers;
+    case Types.SetFollowers: return action.followers;
+    default: return state;
+  }
+}
+
+export const unfollowers: Reducer<'unfollowers', UnfollowersActions> = (
+  state = [],
+  action
+) => {
+  switch (action.type) {
+    case Types.SetUnfollowers: return action.unfollowers;
     default: return state;
   }
 }

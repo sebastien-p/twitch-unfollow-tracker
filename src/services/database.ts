@@ -1,6 +1,6 @@
 import Dexie from 'dexie';
-import { name } from '../../package.json';
 
+import { name } from '../../package.json';
 import { TwitchUser, TwitchFollower } from './twitch.js';
 
 export type UserId = TwitchUser['id'];
@@ -20,8 +20,6 @@ class Database extends Dexie {
     this.version(1).stores({
       followers: 'id,name,date'
     });
-
-    this.open();
   }
 
   async reset<T extends {}>(

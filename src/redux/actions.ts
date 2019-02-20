@@ -1,42 +1,35 @@
 import { Action as ReduxAction } from 'redux';
 
-import { User, State } from './store';
-
-export type Action<
-  Type,
-  Payload extends {} = {}
-> = ReduxAction<Type> & Payload;
-
-export type ActionCreator<
-  Type extends Types,
-  Param extends {} = {},
-  Payload extends Param = Param
-> = (param: Param) => Action<Type, Payload>;
-
-export type Return<Type extends ActionCreator<any, any>> = ReturnType<Type>;
+import { State } from './store';
 
 export enum Types {
-  Login = '[user] login',
-  Logout = '[user] logout',
-  LoadUnfollowers = '[unfollowers] load'
+  SetUser = '[user] set',
+  SetFollowers = '[followers] set',
+  SetUnfollowers = '[unfollowers] set'
 }
 
-export const login: ActionCreator<Types.Login, NonNullable<User>> = user => ({
-  type: Types.Login,
-  ...user
-});
+export type Action<
+  T extends Types,
+  U extends keyof State
+> = (data: State[U]) => ReduxAction<T> & Pick<State, U>;
 
-export const logout: ActionCreator<Types.Logout> = () => ({
-  type: Types.Logout
-});
+export const setUser: Action<
+  Types.SetUser,
+  'user'
+> = user => ({ type: Types.SetUser, user });
 
-export const loadUnfollowers: ActionCreator<
-  Types.LoadUnfollowers,
-  Pick<State, 'unfollowers'>
-> = unfollowers => ({
-  type: Types.LoadUnfollowers,
-  ...unfollowers
-});
+export type UserActions = typeof setUser;
 
-export type UserActions = Return<typeof login> | Return<typeof logout>;
-export type UnfollowersActions = Return<typeof loadUnfollowers>;
+export const setFollowers: Action<
+  Types.SetFollowers,
+  'followers'
+> = followers => ({ type: Types.SetFollowers, followers });
+
+export type FollowersActions = typeof setFollowers;
+
+export const setUnfollowers: Action<
+  Types.SetUnfollowers,
+  'unfollowers'
+> = unfollowers => ({ type: Types.SetUnfollowers, unfollowers });
+
+export type UnfollowersActions = typeof setUnfollowers;
