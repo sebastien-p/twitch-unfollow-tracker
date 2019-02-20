@@ -6,7 +6,7 @@ import { State } from '../redux/store';
 import { Followers } from './Followers';
 import { Button } from './Button';
 
-type StateProps = Pick<State, 'unfollowers'>;
+type StateProps = Pick<State, 'followers' | 'unfollowers'>;
 
 type DispatchProps = {
   loadUnfollowers(...args: any[]): void; // FIXME
@@ -20,17 +20,20 @@ type OwnProps = {
 type Props = StateProps & DispatchProps & OwnProps;
 
 const PureHome: FunctionComponent<Props> = (
-  { user, unfollowers, loadUnfollowers, logout }
+  { user, followers, unfollowers, loadUnfollowers, logout }
 ) => (
   <div>
     <h1>{user.name}</h1>
     <Button onClick={loadUnfollowers}>Load</Button>
     <Button onClick={logout}>Logout</Button>
+    <h2>Unfollowers</h2>
     <Followers data={unfollowers} empty='No unfollower'/>
+    <h2>Followers</h2>
+    <Followers data={followers} empty='No follower' />
   </div>
 );
 
 export const Home = connect<StateProps, DispatchProps, OwnProps, State>(
-  ({ unfollowers }) => ({ unfollowers }),
+  ({ followers, unfollowers }) => ({ followers, unfollowers }),
   { loadUnfollowers, logout }
 )(PureHome);

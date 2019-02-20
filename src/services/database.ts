@@ -22,12 +22,20 @@ class Database extends Dexie {
     });
   }
 
-  async reset<T extends {}>(
+  private async reset<T extends {}>(
     table: Dexie.Table<T, any>,
     values: T[]
   ): Dexie.Promise<any> {
     await table.clear();
     return table.bulkAdd(values);
+  }
+
+  resetFollowers(values: Follower[]): Promise<UserId> {
+    return this.reset(this.table('followers'), values);
+  }
+
+  getFollowers(): Promise<Follower[]> {
+    return this.table('followers').toArray();
   }
 }
 

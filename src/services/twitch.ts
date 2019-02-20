@@ -1,4 +1,5 @@
 import ky, { Options } from 'ky';
+import differenceBy from 'lodash.differenceby';
 
 import { UserId, Follower } from './database';
 
@@ -81,4 +82,11 @@ export async function getFollowers(
   const followers = await get100Followers(clientId, id, cursor);
   followers.data.push(...data);
   return getFollowers(clientId, id, Promise.resolve(followers));
+}
+
+export function getUnfollowers(
+  previousList: Follower[],
+  nextList: Follower[]
+): Follower[] {
+  return differenceBy(previousList, nextList, ({ id }) => id);
 }
