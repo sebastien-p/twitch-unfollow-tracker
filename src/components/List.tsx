@@ -14,5 +14,5 @@ export const List: FunctionComponent<Props> = ({ children, items, empty }) => {
     [children]
   );
 
-  return (items.length ? <ol>{items.map(render)}</ol> : <p>{empty}</p>);
+  return (items.length ? <ul>{items.map(render)}</ul> : <p>{empty}</p>);
 };

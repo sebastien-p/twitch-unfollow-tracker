@@ -19,10 +19,7 @@ class Database extends Dexie {
     super(`${name}.database`);
 
     this.version(1).stores({
-      followers: 'id,name,date'
-    });
-
-    this.version(2).stores({ // FIXME
+      followers: 'id,name,date',
       unfollowers: 'id,name,date'
     });
   }
