@@ -81,6 +81,7 @@ export async function getFollowers(
 
   const followers = await get100Followers(clientId, id, cursor);
   followers.data.push(...data);
+
   return getFollowers(clientId, id, Promise.resolve(followers));
 }
 
