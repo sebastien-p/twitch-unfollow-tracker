@@ -1,15 +1,16 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { loadUnfollowers, logout } from '../redux/thunks';
 import { State } from '../redux/store';
+import { logout } from '../redux/thunks';
+import { Unfollowers } from './Unfollowers';
 import { Followers } from './Followers';
 import { Button } from './Button';
-
-type StateProps = Pick<State, 'followers' | 'unfollowers'>;
+import { Routes } from './Routes';
+import { Private } from './Route';
 
 type DispatchProps = {
-  loadUnfollowers(...args: any[]): void; // FIXME
   logout(...args: any[]): void; // FIXME
 };
 
@@ -17,23 +18,25 @@ type OwnProps = {
   user: NonNullable<State['user']>;
 };
 
-type Props = StateProps & DispatchProps & OwnProps;
+type Props = DispatchProps & OwnProps;
 
-const PureHome: FunctionComponent<Props> = (
-  { user, followers, unfollowers, loadUnfollowers, logout }
-) => (
-  <div>
-    <h1>{user.name}</h1>
-    <Button onClick={loadUnfollowers}>Load</Button>
-    <Button onClick={logout}>Logout</Button>
-    <h2>Unfollowers</h2>
-    <Followers data={unfollowers} empty='No unfollower'/>
-    <h2>Followers</h2>
-    <Followers data={followers} empty='No follower' />
-  </div>
+const PureHome: FunctionComponent<Props> = ({ user, logout }) => (
+  <Fragment>
+    <header>
+      <h1>{user.name}</h1>
+      <NavLink to='/'>Followers</NavLink>
+      <NavLink to='/unfollowers'>Unfollowers</NavLink>
+      <Button onClick={logout}>Logout</Button>
+    </header>
+    <main>
+      <Routes path='/' component={Followers} exact>
+        <Private path='/unfollowers' component={Unfollowers}/>
+      </Routes>
+    </main>
+  </Fragment>
 );
 
-export const Home = connect<StateProps, DispatchProps, OwnProps, State>(
-  ({ followers, unfollowers }) => ({ followers, unfollowers }),
-  { loadUnfollowers, logout }
+export const Home = connect<{}, DispatchProps, OwnProps, State>(
+  null,
+  { logout }
 )(PureHome);

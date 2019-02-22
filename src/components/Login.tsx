@@ -1,26 +1,26 @@
 import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
 import { ObjectSchema, object, string } from 'yup';
+import { connect } from 'react-redux';
 
-import { login } from '../redux/thunks';
 import { State } from '../redux/store';
+import { login } from '../redux/thunks';
 import { Field } from './Field';
 import { Form } from './Form';
 
-export type LoginForm = Pick<NonNullable<State['user']>, 'clientId' | 'name'>;
+export type Values = Pick<NonNullable<State['user']>, 'clientId' | 'name'>;
 
 type DispatchProps = {
-  login(form: LoginForm): void;
+  login(form: Values): void;
 };
 
 type Props = DispatchProps;
 
-const initialValues: LoginForm = {
+const initialValues: Values = {
   clientId: '',
   name: ''
 };
 
-const validationSchema: ObjectSchema<LoginForm> = object<LoginForm>({
+const validationSchema: ObjectSchema<Values> = object<Values>({
   clientId: string().required(),
   name: string().required()
 }).strict(true);

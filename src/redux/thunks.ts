@@ -1,8 +1,8 @@
 import { ThunkAction } from 'redux-thunk';
 
 import { getUserId, getFollowers, getUnfollowers } from '../services/twitch';
-import { database, Follower, UserId } from '../services/database';
-import { LoginForm } from '../components/Login';
+import { database, Follower } from '../services/database';
+import { Values } from '../components/Login';
 
 import {
   Types,
@@ -15,50 +15,69 @@ import {
 import { State } from './store';
 
 type Thunk<
-  T extends Action<Types, any>, // TODO
-  U = void,
-> = (data: U) => ThunkAction<any, State, void, ReturnType<T>>; // FIXME
+  T extends Action<Types, any>,
+  V = void,
+  U = void
+> = (data: U) => ThunkAction<Promise<V>, State, void, ReturnType<T>>;
 
-// export const loadFollowers: Thunk<
-//   typeof setFollowers
-// > = () => async dispatch => {
-//   const followers: Follower[] = await database.getFollowers();
-//   dispatch(setFollowers(followers));
-//   return followers;
-// };
-
-export const loadUnfollowers: Thunk<
-  typeof setUnfollowers
-> = () => async (dispatch, getState) => { // TODO: call loadFollowers
+const fetchFollowers: Thunk<
+  typeof setFollowers,
+  Follower[] | void
+> = () => async (dispatch, getState) => {
   const { user } = getState();
   if (!user) { return; }
 
+  const followers: Follower[] = await getFollowers(user.clientId, user.id);
+  await database.resetFollowers(followers);
+  dispatch(setFollowers(followers));
+  return followers;
+};
+
+export const fetchUnfollowers: Thunk<
+  typeof setUnfollowers,
+  Follower[]
+> = () => async dispatch => {
   const [previous, next] = await Promise.all([
-    // dispatch(loadFollowers()),
     database.getFollowers(),
-    getFollowers(user.clientId, user.id)
+    dispatch(fetchFollowers())
   ]);
 
-  await database.resetFollowers(next);
+  const unfollowers: Follower[] = getUnfollowers(previous, next as Follower[]);
+  await database.resetUnfollowers(unfollowers);
+  dispatch(setUnfollowers(unfollowers));
+  return unfollowers;
+};
 
+export const loadFollowers: Thunk<
+  typeof setFollowers
+> = () => async (dispatch, getState) => {
+  const { followers } = getState();
+  if (followers.length) { return; }
+  dispatch(setFollowers(await database.getFollowers()));
+};
 
-  dispatch(setFollowers(next) as any); // FIXME
-
-  dispatch(setUnfollowers(getUnfollowers(previous, next)));
+export const loadUnfollowers: Thunk<
+  typeof setUnfollowers
+> = () => async (dispatch, getState) => {
+  const { unfollowers } = getState();
+  if (unfollowers.length) { return; }
+  dispatch(setUnfollowers(await database.getUnfollowers()));
 };
 
 export const login: Thunk<
   typeof setUser,
-  LoginForm
+  void,
+  Values
 > = ({ clientId, name }) => async dispatch => {
-  const id: UserId = await getUserId(clientId, name);
-  dispatch(setUser({ clientId, id, name }));
-  dispatch(loadUnfollowers());
+  dispatch(setUser({ clientId, name, id: await getUserId(clientId, name) }));
+  dispatch(fetchFollowers());
 };
 
 export const logout: Thunk<
-  typeof setUser
+  typeof setUser | typeof setFollowers | typeof setUnfollowers
 > = () => async dispatch => {
-  await database.delete();
+  await database.clear();
   dispatch(setUser(null));
+  dispatch(setFollowers([]));
+  dispatch(setUnfollowers([]));
 };

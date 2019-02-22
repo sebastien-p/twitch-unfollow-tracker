@@ -13,6 +13,7 @@ export interface Follower {
 
 class Database extends Dexie {
   readonly followers!: Dexie.Table<Follower, UserId>; // FIXME
+  readonly unfollowers!: Dexie.Table<Follower, UserId>; // FIXME
 
   constructor() {
     super(`${name}.database`);
@@ -20,22 +21,44 @@ class Database extends Dexie {
     this.version(1).stores({
       followers: 'id,name,date'
     });
+
+    this.version(2).stores({ // FIXME
+      unfollowers: 'id,name,date'
+    });
   }
 
-  private async reset<T extends {}>(
+  private async resetTable<T extends {}>(
     table: Dexie.Table<T, any>,
     values: T[]
-  ): Dexie.Promise<any> {
+  ): Promise<any> {
     await table.clear();
     return table.bulkAdd(values);
   }
 
+  private getTableValues<T extends {}>(
+    table: Dexie.Table<T, any>
+  ): Promise<T[]> {
+    return table.orderBy('date').reverse().toArray();
+  }
+
+  clear(): Promise<void[]> {
+    return Promise.all(this.tables.map(table => table.clear()));
+  }
+
   resetFollowers(values: Follower[]): Promise<UserId> {
-    return this.reset(this.table('followers'), values);
+    return this.resetTable(this.table('followers'), values);
+  }
+
+  resetUnfollowers(values: Follower[]): Promise<UserId> {
+    return this.resetTable(this.table('unfollowers'), values);
   }
 
   getFollowers(): Promise<Follower[]> {
-    return this.table('followers').toArray();
+    return this.getTableValues(this.table('followers'));
+  }
+
+  getUnfollowers(): Promise<Follower[]> {
+    return this.getTableValues(this.table('unfollowers'));
   }
 }
 
