@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 
 import { getUserId, getFollowers, getUnfollowers } from '../services/twitch';
-import { database, Follower } from '../services/database';
+import { Follower, database as db } from '../services/database';
 import { Values } from '../components/Login';
 
 import {
@@ -28,7 +28,7 @@ const fetchFollowers: Thunk<
   if (!user) { return; }
 
   const followers: Follower[] = await getFollowers(user.clientId, user.id);
-  await database.resetFollowers(followers);
+  await db.resetTable(db.followers, followers);
   dispatch(setFollowers(followers));
   return followers;
 };
@@ -38,12 +38,12 @@ export const fetchUnfollowers: Thunk<
   Follower[]
 > = () => async dispatch => {
   const [previous, next] = await Promise.all([
-    database.getFollowers(),
+    db.getSortedValues(db.followers),
     dispatch(fetchFollowers())
   ]);
 
   const unfollowers: Follower[] = getUnfollowers(previous, next as Follower[]);
-  await database.resetUnfollowers(unfollowers);
+  await db.resetTable(db.unfollowers, unfollowers);
   dispatch(setUnfollowers(unfollowers));
   return unfollowers;
 };
@@ -53,7 +53,7 @@ export const loadFollowers: Thunk<
 > = () => async (dispatch, getState) => {
   const { followers } = getState();
   if (followers.length) { return; }
-  dispatch(setFollowers(await database.getFollowers()));
+  dispatch(setFollowers(await db.getSortedValues(db.followers)));
 };
 
 export const loadUnfollowers: Thunk<
@@ -61,7 +61,7 @@ export const loadUnfollowers: Thunk<
 > = () => async (dispatch, getState) => {
   const { unfollowers } = getState();
   if (unfollowers.length) { return; }
-  dispatch(setUnfollowers(await database.getUnfollowers()));
+  dispatch(setUnfollowers(await db.getSortedValues(db.unfollowers)));
 };
 
 export const login: Thunk<
@@ -76,7 +76,7 @@ export const login: Thunk<
 export const logout: Thunk<
   typeof setUser | typeof setFollowers | typeof setUnfollowers
 > = () => async dispatch => {
-  await database.clear();
+  await db.clear();
   dispatch(setUser(null));
   dispatch(setFollowers([]));
   dispatch(setUnfollowers([]));

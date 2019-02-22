@@ -5,26 +5,33 @@ import { TwitchUser, TwitchFollower } from './twitch.js';
 
 export type UserId = TwitchUser['id'];
 
-export interface Follower {
+export type Follower = {
   date: TwitchFollower['followed_at'];
   name: TwitchFollower['from_name'];
   id: UserId;
 };
 
 class Database extends Dexie {
-  readonly followers!: Dexie.Table<Follower, UserId>; // FIXME
-  readonly unfollowers!: Dexie.Table<Follower, UserId>; // FIXME
+  readonly followers!: Dexie.Table<Follower, UserId>;
+  readonly unfollowers!: Dexie.Table<Follower, UserId>;
 
   constructor() {
     super(`${name}.database`);
+
+    // Fix for Dexie regarding https://github.com/babel/babel/issues/7644.
+    for (const table of ['followers', 'unfollowers']) {
+      delete (this as any)[table];
+    }
 
     this.version(1).stores({
       followers: 'id,name,date',
       unfollowers: 'id,name,date'
     });
+
+    console.log(this);
   }
 
-  private async resetTable<T extends {}>(
+  async resetTable<T extends {}>(
     table: Dexie.Table<T, any>,
     values: T[]
   ): Promise<any> {
@@ -32,7 +39,7 @@ class Database extends Dexie {
     return table.bulkAdd(values);
   }
 
-  private getTableValues<T extends {}>(
+  getSortedValues<T extends {}>(
     table: Dexie.Table<T, any>
   ): Promise<T[]> {
     return table.orderBy('date').reverse().toArray();
@@ -40,22 +47,6 @@ class Database extends Dexie {
 
   clear(): Promise<void[]> {
     return Promise.all(this.tables.map(table => table.clear()));
-  }
-
-  resetFollowers(values: Follower[]): Promise<UserId> {
-    return this.resetTable(this.table('followers'), values);
-  }
-
-  resetUnfollowers(values: Follower[]): Promise<UserId> {
-    return this.resetTable(this.table('unfollowers'), values);
-  }
-
-  getFollowers(): Promise<Follower[]> {
-    return this.getTableValues(this.table('followers'));
-  }
-
-  getUnfollowers(): Promise<Follower[]> {
-    return this.getTableValues(this.table('unfollowers'));
   }
 }
 
