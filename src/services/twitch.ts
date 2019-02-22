@@ -37,7 +37,7 @@ function get<T, U extends TwitchResponse<T> = TwitchResponse<T>>(
   return ky.get(
     `https://api.twitch.tv/helix/${url}`,
     { headers: { 'Client-ID': clientId }, searchParams }
-  ).json() as any;
+  ).json<U>();
 }
 
 export async function getUserId(
