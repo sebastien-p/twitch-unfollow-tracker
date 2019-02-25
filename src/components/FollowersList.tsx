@@ -5,21 +5,24 @@ import React, {
   useCallback
 } from 'react';
 
+import { useTranslation } from 'react-i18next';
+
 import { Follower as FollowerModel } from '../services/database';
 import { Follower } from './Follower';
 import { List } from './List';
 
 type Props = {
   data: FollowerModel[];
-  title: string;
-  empty: string;
+  i18n: string;
 };
 
 type Render = (item: FollowerModel) => ReactNode;
 
 export const FollowersList: FunctionComponent<Props> = (
-  { children, data, title, empty }
+  { data, i18n, children }
 ) => {
+  const [t] = useTranslation();
+
   const render: Render = useCallback<Render>(
     item => <Follower data={item}/>,
     []
@@ -27,9 +30,9 @@ export const FollowersList: FunctionComponent<Props> = (
 
   return (
     <Fragment>
-      <h2>{title} ({data.length})</h2>
+      <h2>{t(`${i18n}.title`)} ({data.length})</h2>
       {children}
-      <List items={data} empty={empty}>{render}</List>
+      <List items={data} empty={`${i18n}.empty`}>{render}</List>
     </Fragment>
   );
 };

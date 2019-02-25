@@ -1,9 +1,19 @@
 import React, { FunctionComponent } from 'react';
+import { useTranslation } from 'react-i18next';
 
-type Props = JSX.IntrinsicElements['button'];
+type Props = JSX.IntrinsicElements['button'] & {
+  i18n?: string;
+};
 
 export const Button: FunctionComponent<Props> = (
-  { children, type = 'button', ...props }
-) => (
-  <button type={type} {...props}>{children}</button>
-);
+  { type = 'button', i18n, children, ...props }
+) => {
+  const [t] = useTranslation();
+
+  return (
+    <button type={type} {...props}>
+      {i18n && t(i18n)}
+      {children}
+    </button>
+  );
+};

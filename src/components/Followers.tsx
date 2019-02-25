@@ -18,7 +18,7 @@ const PureFollowers: FunctionComponent<Props> = (
 ) => {
   useEffect(() => { loadFollowers(); }, []);
 
-  return (<FollowersList data={data} title='Followers' empty='No followers'/>);
+  return (<FollowersList data={data} i18n='followers'/>);
 };
 
 export const Followers = connect<StateProps, DispatchProps, {}, State>(

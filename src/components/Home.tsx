@@ -1,11 +1,11 @@
 import React, { FunctionComponent, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { logout } from '../redux/thunks';
 import { Unfollowers } from './Unfollowers';
 import { Followers } from './Followers';
+import { NavLink } from './NavLink';
 import { Button } from './Button';
 import { Routes } from './Routes';
 import { Private } from './Route';
@@ -24,9 +24,9 @@ const PureHome: FunctionComponent<Props> = ({ user, logout }) => (
   <Fragment>
     <header>
       <h1>{user.name}</h1>
-      <NavLink to='/'>Followers</NavLink>
-      <NavLink to='/unfollowers'>Unfollowers</NavLink>
-      <Button onClick={logout}>Logout</Button>
+      <NavLink i18n='followers.title' to='/'/>
+      <NavLink i18n='unfollowers.title' to='/unfollowers'/>
+      <Button i18n='logout' onClick={logout}/>
     </header>
     <main>
       <Routes path='/' component={Followers} exact>

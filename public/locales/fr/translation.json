@@ -1,0 +1,9 @@
+{
+  "load": "Charger",
+  "login": "Connexion",
+  "logout": "Déconnexion",
+  "empty": "Aucune donnée...",
+  "loading": "Chargement... TODO",
+  "required": "$t({{i18n}}) est obligatoire",
+  "userName": "Nom d'utilisateur"
+}

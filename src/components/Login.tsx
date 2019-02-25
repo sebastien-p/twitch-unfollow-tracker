@@ -29,9 +29,10 @@ const PureLogin: FunctionComponent<Props> = ({ login }) => (
   <Form
     validationSchema={validationSchema}
     initialValues={initialValues}
-    onSubmit={login}>
-    <Field name='clientId'>Client ID</Field>
-    <Field name='name'>User name</Field>
+    onSubmit={login}
+    button='login'>
+    <Field name='clientId' i18n='clientId'/>
+    <Field name='name' i18n='userName'/>
   </Form>
 );
 

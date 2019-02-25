@@ -21,8 +21,8 @@ const PureUnfollowers: FunctionComponent<Props> = (
   useEffect(() => { loadUnfollowers(); }, []);
 
   return (
-    <FollowersList data={data} title='Unfollowers' empty='No unfollowers'>
-      <Button onClick={fetchUnfollowers}>Load</Button>
+    <FollowersList data={data} i18n='unfollowers'>
+      <Button onClick={fetchUnfollowers} i18n='load'/>
     </FollowersList>
   );
 };

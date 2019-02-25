@@ -1,0 +1,18 @@
+{
+  "load": "Load",
+  "login": "Login",
+  "logout": "Logout",
+  "empty": "No data...",
+  "loading": "Loading... TODO",
+  "required": "$t({{i18n}}) is required",
+  "clientId": "Client ID",
+  "userName": "User name",
+  "followers": {
+    "title": "Followers",
+    "empty": "$t(empty)"
+  },
+  "unfollowers": {
+    "title": "Unfollowers",
+    "empty": "$t(empty)"
+  }
+}

@@ -3,6 +3,7 @@ import { RouteProps, Route, Redirect, } from 'react-router';
 import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
+import { Suspense } from './Suspense';
 
 type Props = Pick<RouteProps, 'exact'> & {
   component: ComponentType<any>;
@@ -21,17 +22,21 @@ type ProtectedProps = ProtectedStateProps & ProtectedOwnProps;
 type Render = NonNullable<RouteProps['render']>;
 
 const PureProtected: FunctionComponent<ProtectedProps> = ({
-  children,
   component: Component,
   authenticated,
   user,
   to,
+  children,
   ...props
 }) => {
   const move: boolean = !!user === authenticated;
 
   const render: Render = useCallback<Render>(
-    props => move ? <Redirect to={to}/> : <Component {...props} user={user}/>,
+    props => move ? <Redirect to={to}/> : (
+      <Suspense>
+        <Component {...props} user={user}/>
+      </Suspense>
+    ),
     [Component, user, move, to]
   );
 
