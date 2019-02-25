@@ -20,6 +20,32 @@ type Thunk<
   U = void
 > = (data: U) => ThunkAction<Promise<V>, State, void, ReturnType<T>>;
 
+const syncFollowers: Thunk<
+  typeof setFollowers
+> = () => async dispatch => {
+  dispatch(setFollowers(await db.getSortedValues(db.followers)));
+}
+
+const syncUnfollowers: Thunk<
+  typeof setUnfollowers
+> = () => async dispatch => {
+  dispatch(setUnfollowers(await db.getSortedValues(db.unfollowers)));
+}
+
+export const loadFollowers: Thunk<
+  typeof setFollowers
+> = () => async (dispatch, getState) => {
+  const { followers } = getState();
+  if (!followers.length) { await dispatch(syncFollowers()); }
+};
+
+export const loadUnfollowers: Thunk<
+  typeof setUnfollowers
+> = () => async (dispatch, getState) => {
+  const { unfollowers } = getState();
+  if (!unfollowers.length) { await dispatch(syncUnfollowers()); }
+};
+
 const fetchFollowers: Thunk<
   typeof setFollowers,
   Follower[] | void
@@ -29,12 +55,12 @@ const fetchFollowers: Thunk<
 
   const followers: Follower[] = await getFollowers(user.clientId, user.id);
   await db.resetTable(db.followers, followers);
-  dispatch(setFollowers(followers));
+  await dispatch(syncFollowers());
   return followers;
 };
 
 export const fetchUnfollowers: Thunk<
-  typeof setUnfollowers,
+  typeof setFollowers | typeof setUnfollowers,
   Follower[]
 > = () => async dispatch => {
   const [previous, next] = await Promise.all([
@@ -44,33 +70,17 @@ export const fetchUnfollowers: Thunk<
 
   const unfollowers: Follower[] = getUnfollowers(previous, next as Follower[]);
   await db.resetTable(db.unfollowers, unfollowers);
-  dispatch(setUnfollowers(unfollowers));
+  await dispatch(syncUnfollowers());
   return unfollowers;
 };
 
-export const loadFollowers: Thunk<
-  typeof setFollowers
-> = () => async (dispatch, getState) => {
-  const { followers } = getState();
-  if (followers.length) { return; }
-  dispatch(setFollowers(await db.getSortedValues(db.followers)));
-};
-
-export const loadUnfollowers: Thunk<
-  typeof setUnfollowers
-> = () => async (dispatch, getState) => {
-  const { unfollowers } = getState();
-  if (unfollowers.length) { return; }
-  dispatch(setUnfollowers(await db.getSortedValues(db.unfollowers)));
-};
-
 export const login: Thunk<
-  typeof setUser,
-  void,
+  typeof setUser | typeof setFollowers,
+  Follower[] | void,
   Values
 > = ({ clientId, name }) => async dispatch => {
   dispatch(setUser({ clientId, name, id: await getUserId(clientId, name) }));
-  dispatch(fetchFollowers());
+  await dispatch(fetchFollowers());
 };
 
 export const logout: Thunk<
