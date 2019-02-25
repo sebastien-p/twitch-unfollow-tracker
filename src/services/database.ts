@@ -27,8 +27,6 @@ class Database extends Dexie {
       followers: 'id,name,date',
       unfollowers: 'id,name,date'
     });
-
-    console.log(this);
   }
 
   async resetTable<T extends {}>(
