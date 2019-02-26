@@ -1,5 +1,22 @@
 import React, { FunctionComponent, ReactNode, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
+
+const Wrapper = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const Empty = styled.p`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const Item = styled.li`
+  padding: 10px;
+`;
 
 type Props = {
   items: any[];
@@ -13,9 +30,12 @@ export const List: FunctionComponent<Props> = ({ items, empty, children }) => {
   const [t] = useTranslation();
 
   const render: Render = useCallback<Render>(
-    (item, index) => <li key={index}>{children(item)}</li>,
+    (item, index) => <Item key={index}>{children(item)}</Item>,
     [children]
   );
 
-  return (items.length ? <ul>{items.map(render)}</ul> : <p>{t(empty)}</p>);
+  return (items.length
+    ? <Wrapper>{items.map(render)}</Wrapper>
+    : <Empty>{t(empty)}</Empty>
+  );
 };

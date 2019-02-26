@@ -1,11 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
 type Props = JSX.IntrinsicElements['button'] & {
   i18n?: string;
 };
 
-export const Button: FunctionComponent<Props> = (
+const PureButton: FunctionComponent<Props> = (
   { type = 'button', i18n, children, ...props }
 ) => {
   const [t] = useTranslation();
@@ -17,3 +18,21 @@ export const Button: FunctionComponent<Props> = (
     </button>
   );
 };
+
+export const Button = styled(PureButton)`
+  background: black;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  display: inline-block;
+  font: inherit;
+  padding: 10px;
+
+  &:disabled {
+    opacity: 0.25;
+  }
+
+  &:active {
+    opacity: 0.75;
+  }
+`;

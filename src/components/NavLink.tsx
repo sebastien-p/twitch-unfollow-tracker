@@ -1,12 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { NavLinkProps, NavLink as RouterNavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
 type Props = NavLinkProps & {
   i18n?: string;
 };
 
-export const NavLink: FunctionComponent<Props> = (
+const PureNavLink: FunctionComponent<Props> = (
   { i18n, children, ...props }
 ) => {
   const [t] = useTranslation();
@@ -18,3 +19,18 @@ export const NavLink: FunctionComponent<Props> = (
     </RouterNavLink>
   );
 };
+
+export const NavLink = styled(PureNavLink).attrs({
+  activeClassName: 'active',
+  exact: true
+})`
+  color: inherit;
+  display: inline-block;
+  padding: 10px;
+  text-decoration: none;
+
+  &:hover,
+  &.${({ activeClassName }) => activeClassName} {
+    color: red;
+  }
+`;

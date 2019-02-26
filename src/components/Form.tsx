@@ -1,7 +1,18 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import { FormikConfig, Formik, Form as FormikForm } from 'formik';
+import styled from 'styled-components/macro';
 
 import { Button } from './Button';
+
+const Wrapper = styled(FormikForm)`
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+
+  > * + * {
+    margin-top: 30px;
+  }
+`;
 
 type Props = Pick<
   FormikConfig<any>,
@@ -17,10 +28,10 @@ export const Form: FunctionComponent<Props> = (
 ) => {
   const render: Render = useCallback<Render>(
     ({ isValid }) => (
-      <FormikForm>
+      <Wrapper>
         {children}
         <Button type='submit' i18n={button} disabled={!isValid}/>
-      </FormikForm>
+      </Wrapper>
     ),
     [children]
   );

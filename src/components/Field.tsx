@@ -1,12 +1,35 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, ReactNode, useCallback } from 'react';
 import { FieldConfig, Field as FormikField, ErrorMessage } from 'formik';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
+
+const Wrapper = styled.label`
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+
+  > * {
+    margin-top: 10px;
+  }
+`;
+
+const Input = styled(FormikField)`
+  border: 1px solid;
+  border-radius: 5px;
+  font: inherit;
+  padding: 10px;
+`;
+
+const Error = styled.span`
+  color: red;
+  font-weight: normal;
+`;
 
 type Props = FieldConfig & {
   i18n?: string;
 };
 
-type Render = (error: string) => string;
+type Render = (error: string) => ReactNode;
 
 export const Field: FunctionComponent<Props> = (
   { i18n, children, ...props }
@@ -14,16 +37,16 @@ export const Field: FunctionComponent<Props> = (
   const [t] = useTranslation();
 
   const render: Render = useCallback(
-    error => t(error, { i18n }),
+    error => <Error>{t(error, { i18n })}</Error>,
     [i18n, t]
   );
 
   return (
-    <label>
+    <Wrapper>
       {i18n && t(i18n)}
       {children}
-      <FormikField {...props}/>
+      <Input {...props}/>
       <ErrorMessage name={props.name} render={render}/>
-    </label>
+    </Wrapper>
   );
 };
