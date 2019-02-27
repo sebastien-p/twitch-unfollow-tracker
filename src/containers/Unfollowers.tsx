@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { loadUnfollowers, fetchUnfollowers } from '../redux/thunks';
-import { FollowersList } from './FollowersList';
-import { Button } from './Button';
+import { FollowersList } from '../components/FollowersList';
+import { Button } from '../components/Button';
 
 type StateProps = Pick<State, 'unfollowers'>;
 

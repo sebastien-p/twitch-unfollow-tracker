@@ -24,13 +24,17 @@ export const NavLink = styled(PureNavLink).attrs({
   activeClassName: 'active',
   exact: true
 })`
-  color: inherit;
+  color: #b19dd8;
   display: inline-block;
-  padding: 10px;
+  padding: ${({ theme }) => theme.margin}px;
   text-decoration: none;
 
   &:hover,
   &.${({ activeClassName }) => activeClassName} {
-    color: red;
+    color: white;
+  }
+
+  &:hover {
+    text-decoration: underline;
   }
 `;

@@ -9,15 +9,15 @@ const Wrapper = styled.label`
   font-weight: bold;
 
   > * {
-    margin-top: 10px;
+    margin-top: ${({ theme }) => theme.margin}px;
   }
 `;
 
 const Input = styled(FormikField)`
   border: 1px solid;
-  border-radius: 5px;
+  border-radius: ${({ theme }) => theme.margin / 2}px;
   font: inherit;
-  padding: 10px;
+  padding: ${({ theme }) => theme.margin}px;
 `;
 
 const Error = styled.span`

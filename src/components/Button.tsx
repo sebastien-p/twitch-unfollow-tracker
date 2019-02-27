@@ -20,13 +20,13 @@ const PureButton: FunctionComponent<Props> = (
 };
 
 export const Button = styled(PureButton)`
-  background: black;
+  background: ${({ theme }) => theme.primaryColor};
   border: none;
-  border-radius: 5px;
-  color: white;
+  border-radius: ${({ theme }) => theme.margin / 2}px;
+  color: inherit;
   display: inline-block;
   font: inherit;
-  padding: 10px;
+  padding: ${({ theme }) => theme.margin}px;
 
   &:disabled {
     opacity: 0.25;

@@ -10,7 +10,7 @@ const Wrapper = styled(FormikForm)`
   font-weight: bold;
 
   > * + * {
-    margin-top: 30px;
+    margin-top: ${({ theme }) => theme.margin * 3}px;
   }
 `;
 

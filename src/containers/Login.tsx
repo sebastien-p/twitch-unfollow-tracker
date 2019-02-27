@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { login } from '../redux/thunks';
-import { Field } from './Field';
-import { Form } from './Form';
+import { Field } from '../components/Field';
+import { Form } from '../components/Form';
 
 export type Values = Pick<NonNullable<State['user']>, 'clientId' | 'name'>;
 

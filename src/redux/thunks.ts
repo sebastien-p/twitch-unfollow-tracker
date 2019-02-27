@@ -2,7 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 
 import { getUserId, getFollowers, getUnfollowers } from '../services/twitch';
 import { Follower, database as db } from '../services/database';
-import { Values } from '../components/Login';
+import { Values } from '../containers/Login';
 
 import {
   Types,

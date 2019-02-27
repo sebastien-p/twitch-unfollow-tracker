@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { loadFollowers } from '../redux/thunks';
-import { FollowersList } from './FollowersList';
+import { FollowersList } from '../components/FollowersList';
 
 type StateProps = Pick<State, 'followers'>;
 

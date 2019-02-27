@@ -4,18 +4,17 @@ import styled from 'styled-components/macro';
 
 const Wrapper = styled.ul`
   list-style: none;
-  margin: 0;
-  padding: 0;
+  /* margin: 0; */
+  /* padding: 0; */
 `;
 
 const Empty = styled.p`
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  /* margin: 0; */
+  /* padding: 0; */
 `;
 
 const Item = styled.li`
-  padding: 10px;
+  padding: ${({ theme }) => theme.margin};
 `;
 
 type Props = {
