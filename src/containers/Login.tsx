@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { login } from '../redux/thunks';
+import { Content } from '../components/Content';
 import { Field } from '../components/Field';
 import { Form } from '../components/Form';
 
@@ -26,14 +27,16 @@ const validationSchema: ObjectSchema<Values> = object<Values>({
 }).strict(true);
 
 const PureLogin: FunctionComponent<Props> = ({ login }) => (
-  <Form
-    validationSchema={validationSchema}
-    initialValues={initialValues}
-    onSubmit={login}
-    button='login'>
-    <Field name='clientId' i18n='clientId'/>
-    <Field name='name' i18n='userName'/>
-  </Form>
+  <Content>
+    <Form
+      validationSchema={validationSchema}
+      initialValues={initialValues}
+      onSubmit={login}
+      button='login'>
+      <Field name='clientId' i18n='clientId'/>
+      <Field name='name' i18n='userName'/>
+    </Form>
+  </Content>
 );
 
 export const Login = connect<{}, DispatchProps, {}, State>(
