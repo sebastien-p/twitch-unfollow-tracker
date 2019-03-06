@@ -1,14 +1,13 @@
-import React, { FunctionComponent, ComponentType } from 'react';
-import { RouteProps, Switch, Redirect } from 'react-router';
+import React, { FunctionComponent } from 'react';
+import { Switch, Redirect } from 'react-router';
 
-import { Private } from './Route';
+import { RouteProps, Private } from './Route';
 
-type Props = Pick<RouteProps, 'exact'> & {
-  component: ComponentType<any>;
-  path: string;
-};
+export type RoutesProps<T = any> = RouteProps<T>;
 
-export const Routes: FunctionComponent<Props> = ({ children, ...props }) => (
+export const Routes: FunctionComponent<RoutesProps> = (
+  { children, ...props }
+) => (
   <Switch>
     {children}
     <Private {...props}/>

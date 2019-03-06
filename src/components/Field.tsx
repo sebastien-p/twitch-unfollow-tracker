@@ -1,52 +1,26 @@
-import React, { FunctionComponent, ReactNode, useCallback } from 'react';
-import { FieldConfig, Field as FormikField, ErrorMessage } from 'formik';
+import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components/macro';
+import { FieldConfig } from 'formik';
 
-const Wrapper = styled.label`
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
+import { Label } from './Label';
+import { Input } from './Input';
+import { ErrorMessage } from './ErrorMessage';
 
-  > * {
-    margin-top: ${({ theme }) => theme.margin}px;
-  }
-`;
-
-const Input = styled(FormikField)`
-  border: 1px solid;
-  border-radius: ${({ theme }) => theme.margin / 2}px;
-  font: inherit;
-  padding: ${({ theme }) => theme.margin}px;
-`;
-
-const Error = styled.span`
-  color: red;
-  font-weight: normal;
-`;
-
-type Props = FieldConfig & {
+export type FieldProps = Pick<FieldConfig, 'name'> & {
   i18n?: string;
 };
 
-type Render = (error: string) => ReactNode;
-
-export const Field: FunctionComponent<Props> = (
-  { i18n, children, ...props }
+export const Field: FunctionComponent<FieldProps> = (
+  { name, i18n, children }
 ) => {
   const [t] = useTranslation();
 
-  const render: Render = useCallback(
-    error => <Error>{t(error, { i18n })}</Error>,
-    [i18n, t]
-  );
-
   return (
-    <Wrapper>
+    <Label>
       {i18n && t(i18n)}
       {children}
-      <Input {...props}/>
-      <ErrorMessage name={props.name} render={render}/>
-    </Wrapper>
+      <Input name={name}/>
+      <ErrorMessage name={name}/>
+    </Label>
   );
 };

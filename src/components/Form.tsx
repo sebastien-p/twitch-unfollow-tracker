@@ -4,7 +4,16 @@ import styled from 'styled-components/macro';
 
 import { Button } from './Button';
 
-const Wrapper = styled(FormikForm)`
+export type FormProps<T = any> = Pick<
+  FormikConfig<T>,
+  'onSubmit' | 'initialValues' | 'validationSchema'
+> & {
+  button: string;
+};
+
+type Render<T = any> = NonNullable<FormikConfig<T>['render']>;
+
+const PureForm = styled(FormikForm)`
   display: flex;
   flex-direction: column;
   font-weight: bold;
@@ -14,24 +23,15 @@ const Wrapper = styled(FormikForm)`
   }
 `;
 
-type Props = Pick<
-  FormikConfig<any>,
-  'onSubmit' | 'initialValues' | 'validationSchema'
-> & {
-  button: string;
-};
-
-type Render = NonNullable<FormikConfig<any>['render']>;
-
-export const Form: FunctionComponent<Props> = (
+export const Form: FunctionComponent<FormProps> = (
   { button, children, ...props }
 ) => {
   const render: Render = useCallback<Render>(
     ({ isValid }) => (
-      <Wrapper>
+      <PureForm>
         {children}
         <Button type='submit' i18n={button} disabled={!isValid}/>
-      </Wrapper>
+      </PureForm>
     ),
     [children]
   );

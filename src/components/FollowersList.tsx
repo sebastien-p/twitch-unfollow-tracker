@@ -1,24 +1,19 @@
-import React, {
-  FunctionComponent,
-  ReactNode,
-  Fragment,
-  useCallback
-} from 'react';
-
+import React, { FunctionComponent, Fragment, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Follower as FollowerModel } from '../services/database';
+import { ListProps, List } from './List';
 import { Follower } from './Follower';
-import { List } from './List';
+import { Title } from './Title';
 
-type Props = {
+export type FollowersListProps = {
   data: FollowerModel[];
   i18n: string;
 };
 
-type Render = (item: FollowerModel) => ReactNode;
+type Render = ListProps<FollowerModel>['children'];
 
-export const FollowersList: FunctionComponent<Props> = (
+export const FollowersList: FunctionComponent<FollowersListProps> = (
   { data, i18n, children }
 ) => {
   const [t] = useTranslation();
@@ -30,9 +25,9 @@ export const FollowersList: FunctionComponent<Props> = (
 
   return (
     <Fragment>
-      <h2>{t(`${i18n}.title`)} ({data.length})</h2>
+      <Title>{t(i18n)} ({data.length})</Title>
       {children}
-      <List items={data} empty={`${i18n}.empty`}>{render}</List>
+      <List items={data}>{render}</List>
     </Fragment>
   );
 };

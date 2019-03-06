@@ -1,25 +1,26 @@
 import React, { FunctionComponent, ComponentType, useCallback } from 'react';
-import { RouteProps, Route, Redirect, } from 'react-router';
+import { RouteProps as RouterRouteProps, Route, Redirect } from 'react-router';
+
 import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { Suspense } from './Suspense';
 
-type Props = Pick<RouteProps, 'exact'> & {
-  component: ComponentType<any>;
+export type RouteProps<T = any> = Pick<RouterRouteProps, 'exact'> & {
+  component: ComponentType<T>;
   path: string;
 };
 
 type ProtectedStateProps = Pick<State, 'user'>;
 
-type ProtectedOwnProps = Props & {
+type ProtectedOwnProps = RouteProps & {
   authenticated: boolean;
-  to: string;
+  to: RouteProps['path'];
 };
 
 type ProtectedProps = ProtectedStateProps & ProtectedOwnProps;
 
-type Render = NonNullable<RouteProps['render']>;
+type Render = NonNullable<RouterRouteProps['render']>;
 
 const PureProtected: FunctionComponent<ProtectedProps> = ({
   component: Component,
@@ -47,10 +48,10 @@ const Protected = connect<ProtectedStateProps, {}, ProtectedOwnProps, State>(
   ({ user }) => ({ user })
 )(PureProtected);
 
-export const Public: FunctionComponent<Props> = props => (
+export const Public: FunctionComponent<RouteProps> = props => (
   <Protected {...props} authenticated={true} to='/'/>
 );
 
-export const Private: FunctionComponent<Props> = props => (
+export const Private: FunctionComponent<RouteProps> = props => (
   <Protected {...props} authenticated={false} to='/login'/>
 );

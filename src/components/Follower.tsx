@@ -2,11 +2,11 @@ import React, { FunctionComponent, Fragment } from 'react';
 
 import { Follower as FollowerModel } from '../services/database';
 
-type Props = {
+export type FollowerProps = {
   data: FollowerModel;
 };
 
-export const Follower: FunctionComponent<Props> = (
+export const Follower: FunctionComponent<FollowerProps> = (
   { data: { name, date } }
 ) => (
   <Fragment>

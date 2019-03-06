@@ -1,40 +1,29 @@
 import React, { FunctionComponent, ReactNode, useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
-const Wrapper = styled.ul`
+import { ListItem } from './ListItem';
+import { Empty } from './Empty';
+
+export type ListProps<T = any> = {
+  children(item: T): ReactNode;
+  items: T[];
+};
+
+type Render<T = any> = (item: T, index: number) => ReactNode;
+
+const PureList = styled.ul`
   list-style: none;
   /* margin: 0; */
   /* padding: 0; */
 `;
 
-const Empty = styled.p`
-  /* margin: 0; */
-  /* padding: 0; */
-`;
-
-const Item = styled.li`
-  padding: ${({ theme }) => theme.margin};
-`;
-
-type Props = {
-  items: any[];
-  empty: string;
-  children(items: any): ReactNode;
-};
-
-type Render = (item: any, index: number) => ReactNode;
-
-export const List: FunctionComponent<Props> = ({ items, empty, children }) => {
-  const [t] = useTranslation();
-
+export const List: FunctionComponent<ListProps> = (
+  { items, children }
+) => {
   const render: Render = useCallback<Render>(
-    (item, index) => <Item key={index}>{children(item)}</Item>,
+    (item, index) => <ListItem key={index}>{children(item)}</ListItem>,
     [children]
   );
 
-  return (items.length
-    ? <Wrapper>{items.map(render)}</Wrapper>
-    : <Empty>{t(empty)}</Empty>
-  );
+  return (items.length ? <PureList>{items.map(render)}</PureList> : <Empty/>);
 };

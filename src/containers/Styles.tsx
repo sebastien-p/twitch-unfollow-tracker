@@ -24,17 +24,21 @@ const Global = createGlobalStyle`
   }
 
   html,
-  body {
+  body,
+  #root {
     height: 100%;
   }
 
   body {
     background: ${({ theme }) => theme.primaryColor};
     color: ${({ theme }) => theme.secondaryColor};
-    display: flex;
-    flex-direction: column;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
   }
 `;
 

@@ -2,11 +2,11 @@ import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
-type Props = JSX.IntrinsicElements['button'] & {
+export type ButtonProps = JSX.IntrinsicElements['button'] & {
   i18n?: string;
 };
 
-const PureButton: FunctionComponent<Props> = (
+const PureButton: FunctionComponent<ButtonProps> = (
   { type = 'button', i18n, children, ...props }
 ) => {
   const [t] = useTranslation();
@@ -24,11 +24,13 @@ export const Button = styled(PureButton)`
   border: none;
   border-radius: ${({ theme }) => theme.margin / 2}px;
   color: inherit;
+  cursor: pointer;
   display: inline-block;
   font: inherit;
   padding: ${({ theme }) => theme.margin}px;
 
   &:disabled {
+    cursor:not-allowed;
     opacity: 0.25;
   }
 
