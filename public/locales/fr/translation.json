@@ -4,7 +4,7 @@
   "logout": "Déconnexion",
   "empty": "Aucune donnée...",
   "loading": "Chargement... TODO",
-  "required": "$t({{i18n}}) est obligatoire",
-  "userName": "Nom d'utilisateur",
+  "required": "'$t({{name}})' est obligatoire",
+  "name": "Nom d'utilisateur",
   "followDate": "Date de follow"
 }

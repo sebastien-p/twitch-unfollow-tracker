@@ -33,8 +33,8 @@ const PureLogin: FunctionComponent<Props> = ({ login }) => (
       initialValues={initialValues}
       onSubmit={login}
       button='login'>
-      <Field name='clientId' i18n='clientId'/>
-      <Field name='name' i18n='userName'/>
+      <Field name='clientId'/>
+      <Field name='name'/>
     </Form>
   </Content>
 );

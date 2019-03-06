@@ -4,9 +4,9 @@
   "logout": "Logout",
   "empty": "No data...",
   "loading": "Loading... TODO",
-  "required": "$t({{i18n}}) is required",
+  "required": "'$t({{name}})' is required",
   "clientId": "Client ID",
-  "userName": "User name",
+  "name": "User name",
   "followers": "Followers",
   "unfollowers": "Unfollowers",
   "followDate": "Follow date"

@@ -6,18 +6,16 @@ import { Label } from './Label';
 import { Input } from './Input';
 import { ErrorMessage } from './ErrorMessage';
 
-export type FieldProps = Pick<FieldConfig, 'name'> & {
-  i18n?: string;
-};
+export type FieldProps = Pick<FieldConfig, 'name'>;
 
 export const Field: FunctionComponent<FieldProps> = (
-  { name, i18n, children }
+  { name, children }
 ) => {
   const [t] = useTranslation();
 
   return (
     <Label>
-      {i18n && t(i18n)}
+      {t(name)}
       {children}
       <Input name={name}/>
       <ErrorMessage name={name}/>
