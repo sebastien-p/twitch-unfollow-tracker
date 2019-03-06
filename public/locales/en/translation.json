@@ -8,5 +8,6 @@
   "clientId": "Client ID",
   "userName": "User name",
   "followers": "Followers",
-  "unfollowers": "Unfollowers"
+  "unfollowers": "Unfollowers",
+  "followDate": "Follow date"
 }

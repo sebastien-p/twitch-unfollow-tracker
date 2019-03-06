@@ -5,5 +5,6 @@
   "empty": "Aucune donnée...",
   "loading": "Chargement... TODO",
   "required": "$t({{i18n}}) est obligatoire",
-  "userName": "Nom d'utilisateur"
+  "userName": "Nom d'utilisateur",
+  "followDate": "Date de follow"
 }
