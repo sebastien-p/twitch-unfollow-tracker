@@ -1,5 +1,5 @@
 declare module 'cogo-toast' {
-  import { ReactNode, MouseEventHandle } from 'react';
+  import { ReactNode, MouseEventHandler } from 'react';
 
   export type Options = Partial<{
     hideAfter: number;
