@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { logout } from '../redux/thunks';
-import { Content } from '../components/Content';
 import { NavLink } from '../components/NavLink';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
@@ -34,11 +33,9 @@ const PureHome: FunctionComponent<Props> = ({ user, logout }) => (
       </Nav>
       <Button i18n='logout' onClick={logout}/>
     </Header>
-    <Content>
-      <Routes path='/' component={Followers} exact>
-        <Private path='/unfollowers' component={Unfollowers}/>
-      </Routes>
-    </Content>
+    <Routes path='/' component={Followers} exact>
+      <Private path='/unfollowers' component={Unfollowers}/>
+    </Routes>
   </Fragment>
 );
 

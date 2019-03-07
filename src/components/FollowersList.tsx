@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Follower as FollowerModel } from '../services/database';
 import { ListProps, List } from './List';
 import { Follower } from './Follower';
+import { Content } from './Content';
 import { Title } from './Title';
 
 export type FollowersListProps = {
@@ -27,7 +28,9 @@ export const FollowersList: FunctionComponent<FollowersListProps> = (
     <Fragment>
       <Title>{t(i18n)} ({data.length})</Title>
       {children}
-      <List items={data}>{render}</List>
+      <Content>
+        <List items={data}>{render}</List>
+      </Content>
     </Fragment>
   );
 };

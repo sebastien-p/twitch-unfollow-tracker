@@ -2,10 +2,12 @@ import React, { FunctionComponent, Fragment } from 'react';
 import { ThemeProvider, createGlobalStyle } from 'styled-components/macro';
 
 type Theme = {
+  font: string;
   margin: number;
   twitchColor: string;
   primaryColor: string;
   secondaryColor: string;
+  errorColor: string;
 };
 
 declare module 'styled-components' {
@@ -32,7 +34,7 @@ const Global = createGlobalStyle`
   body {
     background: ${({ theme }) => theme.primaryColor};
     color: ${({ theme }) => theme.secondaryColor};
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: ${({ theme }) => theme.font};
     margin: 0;
   }
 
@@ -44,9 +46,11 @@ const Global = createGlobalStyle`
 
 const theme: Theme = {
   margin: 10,
+  errorColor: '#ff0000',
   twitchColor: '#4b367c',
   primaryColor: '#0f0e11',
-  secondaryColor: '#dad8de'
+  secondaryColor: '#dad8de',
+  font: 'Helvetica Neue, Helvetica, Arial, sans- serif'
 };
 
 export const Styles: FunctionComponent = ({ children }) => (

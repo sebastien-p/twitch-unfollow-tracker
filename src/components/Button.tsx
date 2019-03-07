@@ -2,6 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
+import { Header } from './Header';
+
 export type ButtonProps = JSX.IntrinsicElements['button'] & {
   i18n?: string;
 };
@@ -20,7 +22,7 @@ const PureButton: FunctionComponent<ButtonProps> = (
 };
 
 export const Button = styled(PureButton)`
-  background: ${({ theme }) => theme.primaryColor};
+  background: ${({ theme }) => theme.twitchColor};
   border: none;
   border-radius: ${({ theme }) => theme.margin / 2}px;
   color: inherit;
@@ -36,5 +38,9 @@ export const Button = styled(PureButton)`
 
   &:active {
     opacity: 0.75;
+  }
+
+  ${Header} & {
+    background: ${({ theme }) => theme.primaryColor};
   }
 `;
