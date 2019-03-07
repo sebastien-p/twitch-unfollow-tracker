@@ -24,7 +24,7 @@ declare module 'cogo-toast' {
     (message: string, options?: Options): Promise<void>;
   };
 
-  namespace cogo {
+  namespace toast {
     export const loading: Method;
     export const success: Method;
     export const error: Method;
@@ -32,5 +32,5 @@ declare module 'cogo-toast' {
     export const info: Method;
   }
 
-  export default cogo;
+  export default toast;
 }
