@@ -11,16 +11,18 @@ declare module 'cogo-toast' {
       | 'bottom-right';
     heading: string;
     icon: ReactNode;
-    bar: {
+    bar: Partial<{
       size: string;
-      style: string;
+      style: 'solid' | 'dashed' | 'dotted';
       color: string;
-    };
+    }>;
     onClick: MouseEventHandler;
   }>;
 
+  export type HideToastFunction = () => void;
+
   export type Method = {
-    (message: string, options?: Options & { hideAfter: 0 }): () => void;
+    (message: string, options?: Options & { hideAfter: 0 }): HideToastFunction;
     (message: string, options?: Options): Promise<void>;
   };
 
