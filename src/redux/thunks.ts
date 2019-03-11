@@ -24,7 +24,7 @@ const syncFollowers: Thunk<
   typeof setFollowers
 > = () => async dispatch => {
   dispatch(setFollowers(await db.getSortedValues(db.followers)));
-}
+};
 
 const syncUnfollowers: Thunk<
   typeof setUnfollowers
@@ -72,7 +72,7 @@ export const fetchUnfollowers: Thunk<
   await db.resetTable(db.unfollowers, unfollowers);
   await dispatch(syncUnfollowers());
   return unfollowers;
-};
+});
 
 export const login: Thunk<
   typeof setUser | typeof setFollowers,
