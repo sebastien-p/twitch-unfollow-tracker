@@ -3,8 +3,6 @@ import differenceBy from 'lodash.differenceby';
 
 import { UserId, Follower } from './database';
 
-// TODO: handle errors
-
 export interface TwitchUser {
   id: string;
   login: string;

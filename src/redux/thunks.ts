@@ -2,6 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 
 import { getUserId, getFollowers, getUnfollowers } from '../services/twitch';
 import { Follower, database as db } from '../services/database';
+import { withToasts } from '../services/toasts';
 import { Values } from '../containers/Login';
 
 import {
@@ -62,7 +63,7 @@ const fetchFollowers: Thunk<
 export const fetchUnfollowers: Thunk<
   typeof setFollowers | typeof setUnfollowers,
   Follower[]
-> = () => async dispatch => {
+> = () => withToasts<ReturnType<typeof fetchUnfollowers>>(async dispatch => {
   const [previous, next] = await Promise.all([
     db.getSortedValues(db.followers),
     dispatch(fetchFollowers())
@@ -78,10 +79,12 @@ export const login: Thunk<
   typeof setUser | typeof setFollowers,
   Follower[] | void,
   Values
-> = ({ clientId, name }) => async dispatch => {
+> = (
+  { clientId, name }
+) => withToasts<ReturnType<typeof login>>(async dispatch => {
   dispatch(setUser({ clientId, name, id: await getUserId(clientId, name) }));
   await dispatch(fetchFollowers());
-};
+});
 
 export const logout: Thunk<
   typeof setUser | typeof setFollowers | typeof setUnfollowers
