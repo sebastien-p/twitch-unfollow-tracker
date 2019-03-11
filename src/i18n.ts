@@ -6,7 +6,7 @@ import { setLocale } from 'yup';
 
 setLocale({ mixed: { required: 'required' } });
 
-i18next
+export const i18n: Promise<i18next.TFunction> = i18next
   .use(xhrBackend)
   .use(browserLanguageDetector)
   .use(initReactI18next)

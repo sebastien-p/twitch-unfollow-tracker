@@ -3,8 +3,10 @@
   "login": "Connexion",
   "logout": "Déconnexion",
   "empty": "Aucune donnée...",
-  "loading": "Chargement... TODO",
-  "required": "'$t({{name}})' est obligatoire",
+  "loading": "Chargement des données...",
+  "success": "Données chargées avec succès",
+  "error": "Erreur lors du chargement des données",
+  "required": "Le champ '$t({{name}})' est obligatoire",
   "name": "Nom d'utilisateur",
   "followDate": "Date de follow"
 }
