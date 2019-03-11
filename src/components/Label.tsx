@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 export const Label = styled.label`
   display: flex;
   flex-direction: column;
-  font-weight: bold;
+  width: 100%;
 
   > * {
     margin-top: ${({ theme }) => theme.margin}px;

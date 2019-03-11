@@ -8,6 +8,13 @@ type Theme = {
   primaryColor: string;
   secondaryColor: string;
   errorColor: string;
+
+  tutuColor: string;
+  titiColor: string;
+  totoColor: string;
+  teteColor: string;
+  backgroundColor: string;
+  foregroundColor: string;
 };
 
 declare module 'styled-components' {
@@ -32,13 +39,14 @@ const Global = createGlobalStyle`
   }
 
   body {
-    background: ${({ theme }) => theme.primaryColor};
-    color: ${({ theme }) => theme.secondaryColor};
+    background: ${({ theme }) => theme.totoColor};
+    color: ${({ theme }) => theme.teteColor};
     font-family: ${({ theme }) => theme.font};
     margin: 0;
   }
 
   #root {
+    align-items: center;
     display: flex;
     flex-direction: column;
   }
@@ -47,10 +55,17 @@ const Global = createGlobalStyle`
 const theme: Theme = {
   margin: 10,
   errorColor: '#ff0000',
-  twitchColor: '#4b367c',
-  primaryColor: '#0f0e11',
-  secondaryColor: '#dad8de',
-  font: 'Helvetica Neue, Helvetica, Arial, sans- serif'
+  twitchColor: '#FCFC62',
+  primaryColor: '#FEFFEA',
+  secondaryColor: '#A3A3A3',
+  font: 'Helvetica Neue, Helvetica, Arial, sans- serif',
+
+  tutuColor: '#a3572b',
+  titiColor: '#f4a217',
+  totoColor: '#cfd0cd',
+  teteColor: '#7e8083',
+  backgroundColor: '#2f2e35',
+  foregroundColor: '#eaebe5'
 };
 
 export const Styles: FunctionComponent = ({ children }) => (
@@ -58,7 +73,6 @@ export const Styles: FunctionComponent = ({ children }) => (
     <Fragment>
       <Global/>
       {children}
-      {/* <footer>Theme picker</footer> TODO */}
     </Fragment>
   </ThemeProvider>
 );

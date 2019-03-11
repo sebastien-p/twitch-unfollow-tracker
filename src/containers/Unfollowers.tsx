@@ -9,8 +9,8 @@ import { Button } from '../components/Button';
 type StateProps = Pick<State, 'unfollowers'>;
 
 type DispatchProps = {
-  loadUnfollowers(...args: any[]): void; // FIXME
-  fetchUnfollowers(...args: any[]): void; // FIXME
+  loadUnfollowers(...args: any[]): void;
+  fetchUnfollowers(...args: any[]): void;
 };
 
 type Props = StateProps & DispatchProps;
@@ -22,7 +22,7 @@ const PureUnfollowers: FunctionComponent<Props> = (
 
   return (
     <FollowersList data={data} i18n='unfollowers'>
-      <Button onClick={fetchUnfollowers} i18n='load'/>
+      <Button onClick={fetchUnfollowers} i18n='load' primary/>
     </FollowersList>
   );
 };

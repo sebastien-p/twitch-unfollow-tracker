@@ -6,6 +6,7 @@ import { ListProps, List } from './List';
 import { Follower } from './Follower';
 import { Content } from './Content';
 import { Title } from './Title';
+import { Badge } from './Badge';
 
 export type FollowersListProps = {
   data: FollowerModel[];
@@ -26,11 +27,14 @@ export const FollowersList: FunctionComponent<FollowersListProps> = (
 
   return (
     <Fragment>
-      <Title>{t(i18n)} ({data.length})</Title>
-      {children}
+      <Title>
+        {t(i18n)}
+        <Badge>{data.length}</Badge>
+      </Title>
       <Content>
         <List items={data}>{render}</List>
       </Content>
+      {children}
     </Fragment>
   );
 };

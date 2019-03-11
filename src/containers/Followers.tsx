@@ -8,7 +8,7 @@ import { FollowersList } from '../components/FollowersList';
 type StateProps = Pick<State, 'followers'>;
 
 type DispatchProps = {
-  loadFollowers(...args: any[]): void; // FIXME
+  loadFollowers(...args: any[]): void;
 };
 
 type Props = StateProps & DispatchProps;

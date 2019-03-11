@@ -14,9 +14,9 @@ export type FormProps<T = any> = Pick<
 type Render<T = any> = NonNullable<FormikConfig<T>['render']>;
 
 const PureForm = styled(FormikForm)`
+  align-items: center;
   display: flex;
   flex-direction: column;
-  font-weight: bold;
 
   > * + * {
     margin-top: ${({ theme }) => theme.margin * 3}px;
@@ -30,7 +30,7 @@ export const Form: FunctionComponent<FormProps> = (
     ({ isValid }) => (
       <PureForm>
         {children}
-        <Button type='submit' i18n={button} disabled={!isValid}/>
+        <Button type='submit' i18n={button} disabled={!isValid} primary/>
       </PureForm>
     ),
     [children]
