@@ -15,3 +15,14 @@ export const i18n: Promise<i18next.TFunction> = i18next
     returnEmptyString: false,
     fallbackLng: 'en'
   });
+
+export function formatDateTime(locale: string, date: Date | string): string {
+  return new Intl.DateTimeFormat(locale, {
+    year: 'numeric',
+    month: 'long',
+    weekday: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(typeof date === 'string' ? new Date(date) : date);
+};

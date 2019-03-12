@@ -2,6 +2,7 @@ import React, { FunctionComponent, Fragment } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Follower as FollowerModel } from '../services/database';
+import { DateTime } from './DateTime';
 
 export type FollowerProps = {
   data: FollowerModel;
@@ -17,7 +18,7 @@ export const Follower: FunctionComponent<FollowerProps> = (
       <a href={`https://twitch.tv/${name}`}>{name}</a>
       <p>
         {t('followDate')}
-        <time dateTime={date}>{date}</time>
+        <DateTime date={date}/>
       </p>
     </Fragment>
   );
