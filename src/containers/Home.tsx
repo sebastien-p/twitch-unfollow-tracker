@@ -35,8 +35,8 @@ const PureHome: FunctionComponent<Props> = ({ user, logout }) => (
     </Routes>
     <Footer>
       <Nav>
-        <NavLink i18n='unfollowers' to='/' />
-        <NavLink i18n='followers' to='/followers' />
+        <NavLink i18n='unfollowers' to='/'/>
+        <NavLink i18n='followers' to='/followers'/>
       </Nav>
     </Footer>
   </Fragment>

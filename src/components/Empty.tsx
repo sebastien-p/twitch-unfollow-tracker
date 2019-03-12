@@ -1,12 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { useTranslation } from 'react-i18next';
 
-type EmptyProps = JSX.IntrinsicElements['p'];
-
-export const Empty: FunctionComponent<EmptyProps> = (
-  { children, ...props }
-) => {
+export const Empty: FunctionComponent = () => {
   const [t] = useTranslation();
 
-  return (<p {...props}>{t('empty')}</p>);
+  return (<p>{t('empty')}</p>);
 };
