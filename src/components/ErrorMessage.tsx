@@ -12,7 +12,7 @@ export type ErrorMessageProps = Pick<FormikErrorMessageProps, 'name'>;
 type Render = NonNullable<FormikErrorMessageProps['render']>;
 
 export const ErrorMessage: FunctionComponent<ErrorMessageProps> = (
-  { children, ...props }
+  { children, ...props } // FIXME
 ) => {
   const render: Render = useCallback<Render>(
     error => <Error i18n={error} replace={props}/>,

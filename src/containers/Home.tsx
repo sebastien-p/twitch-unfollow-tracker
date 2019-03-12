@@ -2,7 +2,7 @@ import React, { FunctionComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
-import { logout } from '../redux/thunks';
+import { logout, fetchUnfollowers } from '../redux/thunks';
 import { NavLink } from '../components/NavLink';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
@@ -16,6 +16,7 @@ import { Followers } from './Followers';
 
 type DispatchProps = {
   logout(...args: any[]): void;
+  fetchUnfollowers(...args: any[]): void;
 };
 
 type OwnProps = {
@@ -24,7 +25,9 @@ type OwnProps = {
 
 type Props = DispatchProps & OwnProps;
 
-const PureHome: FunctionComponent<Props> = ({ user, logout }) => (
+const PureHome: FunctionComponent<Props> = (
+  { user, logout, fetchUnfollowers }
+) => (
   <Fragment>
     <Header>
       <Title>{user.name}</Title>
@@ -38,11 +41,12 @@ const PureHome: FunctionComponent<Props> = ({ user, logout }) => (
         <NavLink i18n='unfollowers' to='/'/>
         <NavLink i18n='followers' to='/followers'/>
       </Nav>
+      <Button onClick={fetchUnfollowers} i18n='load' primary/>
     </Footer>
   </Fragment>
 );
 
 export const Home = connect<{}, DispatchProps, OwnProps, State>(
   null,
-  { logout }
+  { logout, fetchUnfollowers }
 )(PureHome);

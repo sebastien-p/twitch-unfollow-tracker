@@ -16,7 +16,7 @@ export type FollowersListProps = {
 type Render = ListProps<FollowerModel>['children'];
 
 export const FollowersList: FunctionComponent<FollowersListProps> = (
-  { data, i18n, children }
+  { data, i18n }
 ) => {
   const [t] = useTranslation();
 
@@ -31,10 +31,9 @@ export const FollowersList: FunctionComponent<FollowersListProps> = (
         {t(i18n)}
         <Badge>{data.length}</Badge>
       </Title>
-      <Content>
+      <Content flex>
         <List items={data}>{render}</List>
       </Content>
-      {children}
     </Fragment>
   );
 };

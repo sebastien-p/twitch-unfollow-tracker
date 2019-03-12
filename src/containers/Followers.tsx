@@ -13,7 +13,7 @@ type DispatchProps = {
 
 type Props = StateProps & DispatchProps;
 
-const PureFollowers: FunctionComponent<Props> = (
+const PureFollowers: FunctionComponent<Props> = ( // DRY
   { loadFollowers, followers: data }
 ) => {
   useEffect(() => { loadFollowers(); }, []);
