@@ -31,6 +31,8 @@ export const Title = styled(PureTitle)`
 
   ${Header} & {
     color: ${({ theme }) => theme.foregroundColor};
+    overflow: hidden;
     padding: 0;
+    text-overflow: ellipsis;
   }
 `;

@@ -26,7 +26,6 @@ export const Button = styled(PureButton)`
   };
   border: 1px solid;
   border-radius: ${({ theme }) => theme.margin / 2}px;
-  box-shadow: 0 0 5px 0 black;
   color: ${({ theme }) => theme.foregroundColor};
   cursor: pointer;
   display: inline-block;

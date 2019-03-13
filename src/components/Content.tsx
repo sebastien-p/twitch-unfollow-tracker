@@ -6,7 +6,9 @@ type ContentProps = {
 
 export const Content = styled.main<ContentProps>`
   background: ${({ theme }) => theme.foregroundColor};
-  box-shadow: 0 0 5px 0 black;
+  box-shadow: ${({ theme: { margin, teteColor } }) => {
+    return `0 ${margin / 2}px ${margin * 3}px ${teteColor}`
+  }};
   flex: ${({ flex }) => flex ? 1 : 0} 1 auto;
   overflow: auto;
   margin: 0 ${({ theme }) => theme.margin * 4}px;

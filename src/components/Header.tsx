@@ -7,5 +7,6 @@ export const Header = styled.header`
   flex: none;
   justify-content: space-between;
   padding: ${({ theme }) => theme.margin}px;
+  white-space: nowrap;
   width: 100%;
 `;
