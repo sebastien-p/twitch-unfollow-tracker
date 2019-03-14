@@ -15,9 +15,12 @@ const PureCopyright: FunctionComponent<CopyrightProps> = (
 }
 
 export const Copyright = styled(PureCopyright)`
+  font-size: 0.75em;
   margin: 0;
+  overflow: hidden;
   padding: ${({ theme }) => theme.spacing * 3}px;
   text-align: center;
+  text-overflow: ellipsis;
 
   ${Header} & {
     color: ${({ theme }) => theme.secondary1};
