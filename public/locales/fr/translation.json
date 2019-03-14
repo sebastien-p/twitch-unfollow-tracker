@@ -6,7 +6,7 @@
   "loading": "Chargement des données...",
   "success": "Données chargées avec succès",
   "error": "Erreur lors du chargement des données",
-  "required": "Le champ '$t({{name}})' est obligatoire",
+  "required": "Le champ '$t({{replace}})' est obligatoire",
   "name": "Nom d'utilisateur",
   "followDate": "Date de follow"
 }

@@ -6,7 +6,7 @@
   "loading": "Loading data...",
   "success": "Data successfully loaded",
   "error": "Error while loading data",
-  "required": "'$t({{name}})' field is required",
+  "required": "'$t({{replace}})' field is required",
   "clientId": "Client ID",
   "name": "User name",
   "followers": "Followers",
