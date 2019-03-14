@@ -1,25 +1,25 @@
-import React, { FunctionComponent, Fragment } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { FunctionComponent } from 'react';
+import styled from 'styled-components/macro';
 
 import { Follower as FollowerModel } from '../services/database';
 import { DateTime } from './DateTime';
 
-export type FollowerProps = {
+export type FollowerProps = JSX.IntrinsicElements['a'] & {
   data: FollowerModel;
 };
 
-export const Follower: FunctionComponent<FollowerProps> = (
-  { data: { name, date } }
-) => {
-  const [t] = useTranslation();
+const PureFollower: FunctionComponent<FollowerProps> = (
+  { children, href, data: { name, date }, ...props }
+) => (
+  <a {...props} href={`https://twitch.tv/${name}`}>
+    {name}
+    <DateTime date={date}/>
+  </a>
+);
 
-  return (
-    <Fragment>
-      <a href={`https://twitch.tv/${name}`}>{name}</a>
-      <p>
-        {t('followDate')}
-        <DateTime date={date}/>
-      </p>
-    </Fragment>
-  );
-};
+export const Follower = styled(PureFollower)`
+  color: ${({ theme }) => theme.primary1};
+  display: block;
+  padding: ${({ theme }) => theme.spacing * 2}px;
+  text-decoration: none;
+`;

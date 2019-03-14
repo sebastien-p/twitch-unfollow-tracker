@@ -1,13 +1,16 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components/macro';
 
 import { formatDateTime } from '../i18n';
 
-export type DateTimeProps = {
+export type DateTimeProps = JSX.IntrinsicElements['time'] & {
   date: string;
 };
 
-export const DateTime: FunctionComponent<DateTimeProps> = ({ date }) => {
+const PureDateTime: FunctionComponent<DateTimeProps> = (
+  { children, date, ...props }
+) => {
   const { i18n: { language } } = useTranslation();
 
   const formatted: string = useMemo(
@@ -15,5 +18,10 @@ export const DateTime: FunctionComponent<DateTimeProps> = ({ date }) => {
     [date, language]
   );
 
-  return (<time dateTime={date}>{formatted}</time>);
+  return (<time  {...props} dateTime={date}>{formatted}</time>);
 };
+
+export const DateTime = styled(PureDateTime)`
+  color: ${({ theme }) => theme.primary2};
+  display: block;
+`;

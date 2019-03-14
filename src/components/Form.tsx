@@ -17,6 +17,7 @@ const StyledForm = styled(FormikForm)`
   align-items: center;
   display: flex;
   flex-direction: column;
+  padding: ${({ theme }) => theme.spacing * 2}px;
 
   > * + * {
     margin-top: ${({ theme }) => theme.spacing * 3}px;

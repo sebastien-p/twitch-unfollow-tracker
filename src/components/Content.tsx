@@ -12,6 +12,5 @@ export const Content = styled.main<ContentProps>`
   flex: ${({ flex }) => flex ? 1 : 0} 1 auto;
   overflow: auto;
   margin: 0 ${({ theme }) => theme.spacing * 4}px;
-  padding: ${({ theme }) => theme.spacing * 2}px;
   -webkit-overflow-scrolling: touch;
 `;
