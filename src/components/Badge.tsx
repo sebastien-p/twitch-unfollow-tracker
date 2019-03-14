@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro';
 
 export const Badge = styled.sup`
-  background: ${({ theme }) => theme.accent1};
+  background: ${({ theme }) => theme.accent2};
   border-radius: ${({ theme }) => theme.spacing / 2}px;
   color: ${({ theme }) => theme.secondary1};
   display: inline-block;
