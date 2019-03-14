@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { logout, fetchUnfollowers } from '../redux/thunks';
+import { Copyright } from '../components/Copyright';
 import { NavLink } from '../components/NavLink';
 import { Button } from '../components/Button';
 import { Header } from '../components/Header';
@@ -36,6 +37,7 @@ const PureHome: FunctionComponent<Props> = (
       <Private path='/followers' component={Followers}/>
     </Routes>
     <Footer>
+      <Copyright/>
       <nav>
         <NavLink i18n='unfollowers' to='/'/>
         <NavLink i18n='followers' to='/followers'/>

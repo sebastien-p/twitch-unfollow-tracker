@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
 import { login } from '../redux/thunks';
+import { Copyright } from '../components/Copyright';
 import { Content } from '../components/Content';
 import { Title } from '../components/Title';
 import { Field } from '../components/Field';
@@ -40,6 +41,7 @@ const PureLogin: FunctionComponent<Props> = ({ login }) => (
         <Field name='name'/>
       </Form>
     </Content>
+    <Copyright/>
   </Fragment>
 );
 
