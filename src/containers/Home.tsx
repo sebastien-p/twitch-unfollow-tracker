@@ -23,9 +23,9 @@ type OwnProps = {
   user: NonNullable<State['user']>;
 };
 
-type Props = DispatchProps & OwnProps;
+export type HomeProps = DispatchProps & OwnProps;
 
-const PureHome: FunctionComponent<Props> = (
+const PureHome: FunctionComponent<HomeProps> = (
   { user, logout, fetchUnfollowers }
 ) => (
   <Fragment>

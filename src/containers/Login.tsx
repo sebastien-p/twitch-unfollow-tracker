@@ -16,7 +16,7 @@ type DispatchProps = {
   login(form: Values): void;
 };
 
-type Props = DispatchProps;
+export type LoginProps = DispatchProps;
 
 const initialValues: Values = {
   clientId: '',
@@ -28,7 +28,7 @@ const validationSchema: ObjectSchema<Values> = object<Values>({
   name: string().required()
 }).strict(true);
 
-const PureLogin: FunctionComponent<Props> = ({ login }) => (
+const PureLogin: FunctionComponent<LoginProps> = ({ login }) => (
   <Fragment>
     <Title i18n="login"/>
     <Content>

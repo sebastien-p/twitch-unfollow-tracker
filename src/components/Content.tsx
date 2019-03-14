@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro';
 
-type ContentProps = {
+export type ContentProps = {
   flex?: boolean;
 };
 

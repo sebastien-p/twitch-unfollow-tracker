@@ -11,9 +11,9 @@ type DispatchProps = {
   loadUnfollowers(...args: any[]): void;
 };
 
-type Props = StateProps & DispatchProps;
+export type UnfollowersProps = StateProps & DispatchProps;
 
-const PureUnfollowers: FunctionComponent<Props> = ( // DRY
+const PureUnfollowers: FunctionComponent<UnfollowersProps> = ( // DRY
   { loadUnfollowers, unfollowers }
 ) => {
   useEffect(() => { loadUnfollowers(); }, []);

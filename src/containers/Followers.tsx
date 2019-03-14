@@ -11,9 +11,9 @@ type DispatchProps = {
   loadFollowers(...args: any[]): void;
 };
 
-type Props = StateProps & DispatchProps;
+export type FollowersProps = StateProps & DispatchProps;
 
-const PureFollowers: FunctionComponent<Props> = ( // DRY
+const PureFollowers: FunctionComponent<FollowersProps> = ( // DRY
   { loadFollowers, followers }
 ) => {
   useEffect(() => { loadFollowers(); }, []);
