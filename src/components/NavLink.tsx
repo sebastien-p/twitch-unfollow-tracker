@@ -31,13 +31,13 @@ const PureNavLink: FunctionComponent<NavLinkProps> = (
 export const NavLink = styled(PureNavLink).attrs({
   activeClassName: 'active'
 })`
-  color: ${({ theme }) => theme.teteColor};
+  color: ${({ theme }) => theme.primary2};
   display: inline-block;
-  padding: ${({ theme }) => theme.margin}px;
+  padding: ${({ theme }) => theme.spacing}px;
   text-decoration: none;
 
   &:hover,
   &.${({ activeClassName }) => activeClassName} {
-    color: ${({ theme }) => theme.titiColor};
+    color: ${({ theme }) => theme.accent1};
   }
 `;

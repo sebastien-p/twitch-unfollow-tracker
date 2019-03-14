@@ -11,7 +11,7 @@ export type ListProps<T = any> = {
 
 type Render<T = any> = (item: T, index: number) => ReactNode;
 
-const PureList = styled.ul`
+const StyledList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
@@ -25,5 +25,9 @@ export const List: FunctionComponent<ListProps> = (
     [children]
   );
 
-  return (items.length ? <PureList>{items.map(render)}</PureList> : <Empty/>);
+  return (
+    items.length
+      ? <StyledList>{items.map(render)}</StyledList>
+      : <Empty/>
+  );
 };

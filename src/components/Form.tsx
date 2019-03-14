@@ -13,13 +13,13 @@ export type FormProps<T = any> = Pick<
 
 type Render<T = any> = NonNullable<FormikConfig<T>['render']>;
 
-const PureForm = styled(FormikForm)`
+const StyledForm = styled(FormikForm)`
   align-items: center;
   display: flex;
   flex-direction: column;
 
   > * + * {
-    margin-top: ${({ theme }) => theme.margin * 3}px;
+    margin-top: ${({ theme }) => theme.spacing * 3}px;
   }
 `;
 
@@ -28,10 +28,10 @@ export const Form: FunctionComponent<FormProps> = (
 ) => {
   const render: Render = useCallback<Render>(
     ({ isValid }) => (
-      <PureForm>
+      <StyledForm>
         {children}
-        <Button type='submit' i18n={button} disabled={!isValid} primary/>
-      </PureForm>
+        <Button type='submit' i18n={button} disabled={!isValid} accent/>
+      </StyledForm>
     ),
     [children]
   );

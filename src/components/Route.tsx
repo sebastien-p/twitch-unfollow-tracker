@@ -1,10 +1,15 @@
-import React, { FunctionComponent, ComponentType, useCallback } from 'react';
+import React, {
+  FunctionComponent,
+  ComponentType,
+  Suspense,
+  useCallback
+} from 'react';
+
 import { RouteProps as RouterRouteProps, Route, Redirect } from 'react-router';
 
 import { connect } from 'react-redux';
 
 import { State } from '../redux/store';
-import { Suspense } from './Suspense';
 
 export type RouteProps<T = any> = Pick<RouterRouteProps, 'exact'> & {
   component: ComponentType<T>;
@@ -34,7 +39,7 @@ const PureProtected: FunctionComponent<ProtectedProps> = ({
 
   const render: Render = useCallback<Render>(
     props => move ? <Redirect to={to}/> : (
-      <Suspense>
+      <Suspense fallback={null}>
         <Component {...props} user={user}/>
       </Suspense>
     ),

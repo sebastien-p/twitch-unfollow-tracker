@@ -3,18 +3,13 @@ import { ThemeProvider, createGlobalStyle } from 'styled-components/macro';
 
 type Theme = {
   font: string;
-  margin: number;
-  twitchColor: string;
-  primaryColor: string;
-  secondaryColor: string;
-  errorColor: string;
-
-  tutuColor: string;
-  titiColor: string;
-  totoColor: string;
-  teteColor: string;
-  backgroundColor: string;
-  foregroundColor: string;
+  spacing: number;
+  accent1: string;
+  accent2: string;
+  primary1: string;
+  primary2: string;
+  secondary1: string;
+  secondary2: string;
 };
 
 declare module 'styled-components' {
@@ -39,8 +34,8 @@ const Global = createGlobalStyle`
   }
 
   body {
-    background: ${({ theme }) => theme.totoColor};
-    color: ${({ theme }) => theme.teteColor};
+    background: ${({ theme }) => theme.secondary2};
+    color: ${({ theme }) => theme.primary2};
     font-family: ${({ theme }) => theme.font};
     margin: 0;
   }
@@ -52,19 +47,14 @@ const Global = createGlobalStyle`
 `;
 
 const theme: Theme = {
-  margin: 10,
-  errorColor: '#ff0000',
-  twitchColor: '#FCFC62',
-  primaryColor: '#FEFFEA',
-  secondaryColor: '#A3A3A3',
+  spacing: 10,
   font: 'Helvetica Neue, Helvetica, Arial, sans- serif',
-
-  tutuColor: '#a3572b',
-  titiColor: '#f4a217',
-  totoColor: '#cfd0cd',
-  teteColor: '#7e8083',
-  backgroundColor: '#2f2e35',
-  foregroundColor: '#eaebe5'
+  accent1: '#f4a217',
+  accent2: '#a3572b',
+  primary1: '#2f2e35',
+  primary2: '#7e8083',
+  secondary1: '#eaebe5',
+  secondary2: '#cfd0cd'
 };
 
 export const Styles: FunctionComponent = ({ children }) => (

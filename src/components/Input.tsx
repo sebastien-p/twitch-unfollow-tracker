@@ -1,10 +1,12 @@
-import { Field } from 'formik';
+import { ComponentType } from 'react';
+import { FieldConfig, Field } from 'formik';
 import styled from 'styled-components/macro';
 
-export const Input = styled(Field)`
-  border: 1px solid ${({ theme }) => theme.teteColor};
-  border-radius: ${({ theme }) => theme.margin / 2}px;
-  color: ${({ theme }) => theme.backgroundColor};
+export const Input = styled(Field as ComponentType<FieldConfig>)`
+  background: ${({ theme }) => theme.secondary2};
+  border: 1px solid;
+  border-radius: ${({ theme }) => theme.spacing / 2}px;
+  color: ${({ theme }) => theme.primary1};
   font: inherit;
-  padding: ${({ theme }) => theme.margin}px;
+  padding: ${({ theme }) => theme.spacing}px;
 `;

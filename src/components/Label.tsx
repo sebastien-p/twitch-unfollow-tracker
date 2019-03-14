@@ -6,6 +6,6 @@ export const Label = styled.label`
   width: 100%;
 
   > * {
-    margin-top: ${({ theme }) => theme.margin}px;
+    margin-top: ${({ theme }) => theme.spacing}px;
   }
 `;

@@ -5,13 +5,13 @@ type ContentProps = {
 };
 
 export const Content = styled.main<ContentProps>`
-  background: ${({ theme }) => theme.foregroundColor};
-  box-shadow: ${({ theme: { margin, teteColor } }) => {
-    return `0 ${margin / 2}px ${margin * 3}px ${teteColor}`
+  background: ${({ theme }) => theme.secondary1};
+  box-shadow: ${({ theme: { spacing, primary2 } }) => {
+    return `0 ${spacing / 2}px ${spacing * 3}px ${primary2}`
   }};
   flex: ${({ flex }) => flex ? 1 : 0} 1 auto;
   overflow: auto;
-  margin: 0 ${({ theme }) => theme.margin * 4}px;
-  padding: ${({ theme }) => theme.margin * 2}px;
+  margin: 0 ${({ theme }) => theme.spacing * 4}px;
+  padding: ${({ theme }) => theme.spacing * 2}px;
   -webkit-overflow-scrolling: touch;
 `;

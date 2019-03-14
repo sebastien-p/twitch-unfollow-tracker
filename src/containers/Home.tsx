@@ -10,7 +10,6 @@ import { Footer } from '../components/Footer';
 import { Routes } from '../components/Routes';
 import { Private } from '../components/Route';
 import { Title } from '../components/Title';
-import { Nav } from '../components/Nav';
 import { Unfollowers } from './Unfollowers';
 import { Followers } from './Followers';
 
@@ -37,11 +36,11 @@ const PureHome: FunctionComponent<Props> = (
       <Private path='/followers' component={Followers}/>
     </Routes>
     <Footer>
-      <Nav>
+      <nav>
         <NavLink i18n='unfollowers' to='/'/>
         <NavLink i18n='followers' to='/followers'/>
-      </Nav>
-      <Button onClick={fetchUnfollowers} i18n='load' primary/>
+      </nav>
+      <Button onClick={fetchUnfollowers} i18n='load' accent/>
     </Footer>
   </Fragment>
 );

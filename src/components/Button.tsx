@@ -4,11 +4,11 @@ import styled from 'styled-components/macro';
 
 export type ButtonProps = JSX.IntrinsicElements['button'] & {
   i18n?: string;
-  primary?: boolean;
+  accent?: boolean;
 };
 
 const PureButton: FunctionComponent<ButtonProps> = (
-  { type = 'button', i18n, primary, children, ...props }
+  { type = 'button', i18n, accent, children, ...props }
 ) => {
   const [t] = useTranslation();
 
@@ -22,19 +22,19 @@ const PureButton: FunctionComponent<ButtonProps> = (
 
 export const Button = styled(PureButton)`
   background: ${
-    ({ primary, theme }) => primary ? theme.titiColor : theme.teteColor
+    ({ accent, theme }) => accent ? theme.accent1 : theme.primary2
   };
   border: 1px solid;
-  border-radius: ${({ theme }) => theme.margin / 2}px;
-  color: ${({ theme }) => theme.foregroundColor};
+  border-radius: ${({ theme }) => theme.spacing / 2}px;
+  color: ${({ theme }) => theme.secondary1};
   cursor: pointer;
   display: inline-block;
   font: inherit;
-  padding: ${({ theme }) => `${theme.margin}px ${theme.margin * 2}px`};
+  padding: ${({ theme }) => `${theme.spacing}px ${theme.spacing * 2}px`};
 
   &:disabled {
     cursor:not-allowed;
-    opacity: 0.25;
+    opacity: 0.5;
   }
 
   &:active {

@@ -14,11 +14,11 @@ type DispatchProps = {
 type Props = StateProps & DispatchProps;
 
 const PureUnfollowers: FunctionComponent<Props> = ( // DRY
-  { loadUnfollowers, unfollowers: data }
+  { loadUnfollowers, unfollowers }
 ) => {
   useEffect(() => { loadUnfollowers(); }, []);
 
-  return (<FollowersList data={data} i18n='unfollowers'/>);
+  return (<FollowersList data={unfollowers} i18n='unfollowers'/>);
 };
 
 export const Unfollowers = connect<StateProps, DispatchProps, {}, State>(

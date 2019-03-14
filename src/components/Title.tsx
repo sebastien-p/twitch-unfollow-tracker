@@ -22,15 +22,14 @@ const PureTitle: FunctionComponent<TitleProps> = (
 }
 
 export const Title = styled(PureTitle)`
-  color: ${({ theme }) => theme.teteColor};
+  color: ${({ theme }) => theme.primary2};
   font-size: 1.75em;
   font-weight: normal;
-  padding: ${({ theme }) => `${theme.margin * 2}px ${theme.margin * 4}px`};
+  padding: ${({ theme }) => `${theme.spacing * 2}px ${theme.spacing * 4}px`};
   margin: 0;
-  width: 100%;
 
   ${Header} & {
-    color: ${({ theme }) => theme.foregroundColor};
+    color: ${({ theme }) => theme.secondary1};
     overflow: hidden;
     padding: 0;
     text-overflow: ellipsis;

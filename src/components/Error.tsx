@@ -19,6 +19,5 @@ const PureError: FunctionComponent<ErrorProps> = (
 };
 
 export const Error = styled(PureError)`
-  color: ${({ theme }) => theme.tutuColor};
-  font-weight: normal;
+  color: ${({ theme }) => theme.accent2};
 `;
