@@ -40,7 +40,7 @@ const PureHome: FunctionComponent<Props> = (
         <NavLink i18n='unfollowers' to='/'/>
         <NavLink i18n='followers' to='/followers'/>
       </nav>
-      <Button onClick={fetchUnfollowers} i18n='load' accent/>
+      <Button onClick={fetchUnfollowers} i18n='reload' accent/>
     </Footer>
   </Fragment>
 );

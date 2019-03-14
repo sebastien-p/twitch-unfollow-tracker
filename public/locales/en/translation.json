@@ -1,7 +1,7 @@
 {
-  "load": "Load",
   "login": "Login",
   "logout": "Logout",
+  "reload": "Reload",
   "empty": "No data...",
   "loading": "Loading data...",
   "success": "Data successfully loaded",

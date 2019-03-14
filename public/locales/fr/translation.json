@@ -1,7 +1,7 @@
 {
-  "load": "Charger",
   "login": "Connexion",
   "logout": "Déconnexion",
+  "reload": "Recharger",
   "empty": "Aucune donnée...",
   "loading": "Chargement des données...",
   "success": "Données chargées avec succès",
