@@ -8,12 +8,12 @@ export type ButtonProps = JSX.IntrinsicElements['button'] & {
 };
 
 const PureButton: FunctionComponent<ButtonProps> = (
-  { type = 'button', i18n, accent, children, ...props }
+  { children, type = 'button', i18n, accent, ...props }
 ) => {
   const [t] = useTranslation();
 
   return (
-    <button type={type} {...props}>
+    <button {...props} type={type}>
       {i18n && t(i18n)}
       {children}
     </button>

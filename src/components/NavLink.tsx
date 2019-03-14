@@ -16,7 +16,7 @@ export type NavLinkProps = Pick<
 };
 
 const PureNavLink: FunctionComponent<NavLinkProps> = (
-  { i18n, children, ...props }
+  { children, i18n, ...props }
 ) => {
   const [t] = useTranslation();
 

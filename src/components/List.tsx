@@ -18,7 +18,7 @@ const StyledList = styled.ul`
 `;
 
 export const List: FunctionComponent<ListProps> = (
-  { items, children }
+  { children, items }
 ) => {
   const render: Render = useCallback<Render>(
     (item, index) => <ListItem key={index}>{children(item)}</ListItem>,

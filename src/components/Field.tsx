@@ -9,7 +9,7 @@ import { ErrorMessage } from './ErrorMessage';
 export type FieldProps = Pick<FieldConfig, 'name'>;
 
 export const Field: FunctionComponent<FieldProps> = (
-  { name, children }
+  { children, name }
 ) => {
   const [t] = useTranslation();
 

@@ -9,7 +9,7 @@ export type TitleProps = JSX.IntrinsicElements['h1'] & {
 };
 
 const PureTitle: FunctionComponent<TitleProps> = (
-  { i18n, children, ...props }
+  { children, i18n, ...props }
 ) => {
   const [t] = useTranslation();
 

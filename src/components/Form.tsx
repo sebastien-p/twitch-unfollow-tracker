@@ -24,7 +24,7 @@ const StyledForm = styled(FormikForm)`
 `;
 
 export const Form: FunctionComponent<FormProps> = (
-  { button, children, ...props }
+  { children, button, ...props }
 ) => {
   const render: Render = useCallback<Render>(
     ({ isValid }) => (
