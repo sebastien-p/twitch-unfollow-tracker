@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/macro';
 
 export type ButtonProps = JSX.IntrinsicElements['button'] & {
-  i18n?: string;
+  i18n: string;
   accent?: boolean;
 };
 
@@ -12,12 +12,7 @@ const PureButton: FunctionComponent<ButtonProps> = (
 ) => {
   const [t] = useTranslation();
 
-  return (
-    <button {...props} type={type}>
-      {i18n && t(i18n)}
-      {children}
-    </button>
-  );
+  return (<button {...props} type={type}>{t(i18n)}</button>);
 };
 
 export const Button = styled(PureButton)`

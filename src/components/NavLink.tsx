@@ -12,7 +12,7 @@ export type NavLinkProps = Pick<
   RouterNavLinkProps,
   'to' | 'activeClassName'
 > & {
-  i18n?: string;
+  i18n: string;
 };
 
 const PureNavLink: FunctionComponent<NavLinkProps> = (
@@ -20,12 +20,7 @@ const PureNavLink: FunctionComponent<NavLinkProps> = (
 ) => {
   const [t] = useTranslation();
 
-  return (
-    <RouterNavLink {...props} exact>
-      {i18n && t(i18n)}
-      {children}
-    </RouterNavLink>
-  );
+  return (<RouterNavLink {...props} exact>{t(i18n)}</RouterNavLink>);
 };
 
 export const NavLink = styled(PureNavLink).attrs({
