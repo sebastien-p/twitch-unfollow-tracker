@@ -7,5 +7,7 @@
   "success": "Données chargées avec succès",
   "error": "Erreur lors du chargement des données",
   "required": "Le champ '$t({{replace}})' est obligatoire",
-  "name": "Nom d'utilisateur"
+  "clientIdHelp": "fourni par l'API Twitch, voir la doc",
+  "name": "Nom d'utilisateur",
+  "nameHelp": "votre nom d'utilisateur sur Twitch"
 }

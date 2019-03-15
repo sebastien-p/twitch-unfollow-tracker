@@ -8,7 +8,9 @@
   "error": "Error while loading data",
   "required": "'$t({{replace}})' field is required",
   "clientId": "Client ID",
+  "clientIdHelp": "provided by the Twitch API, see docs",
   "name": "User name",
+  "nameHelp": "your Twitch user name",
   "followers": "Followers",
   "unfollowers": "Unfollowers",
   "copyright": "© 2019 fingerproof"
