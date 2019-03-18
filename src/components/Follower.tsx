@@ -21,5 +21,15 @@ export const Follower = styled(PureFollower)`
   color: ${({ theme }) => theme.primary1};
   display: block;
   padding: ${({ theme }) => theme.spacing * 2}px;
+  position: relative;
   text-decoration: none;
+
+  &::after {
+    content: '〉';
+    font-weight: bold;
+    position: absolute;
+    right: ${({ theme }) => theme.spacing}px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 `;
