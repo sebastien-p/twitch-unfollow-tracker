@@ -13,7 +13,7 @@ type DispatchProps = {
 
 export type FollowersProps = StateProps & DispatchProps;
 
-const PureFollowers: FunctionComponent<FollowersProps> = ( // DRY
+const PureFollowers: FunctionComponent<FollowersProps> = (
   { loadFollowers, followers }
 ) => {
   useEffect(() => { loadFollowers(); }, []);
