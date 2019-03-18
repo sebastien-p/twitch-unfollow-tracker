@@ -1,8 +1,7 @@
-import React, { FunctionComponent, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components/macro';
 
-import { formatDateTime } from '../i18n';
+import { useDateLocalization } from '../i18n';
 
 export type DateTimeProps = JSX.IntrinsicElements['time'] & {
   date: string;
@@ -11,14 +10,9 @@ export type DateTimeProps = JSX.IntrinsicElements['time'] & {
 const PureDateTime: FunctionComponent<DateTimeProps> = (
   { children, date, ...props }
 ) => {
-  const { i18n: { language } } = useTranslation();
+  const localized: string = useDateLocalization(date);
 
-  const formatted: string = useMemo(
-    () => formatDateTime(language, date),
-    [date, language]
-  );
-
-  return (<time  {...props} dateTime={date}>{formatted}</time>);
+  return (<time  {...props} dateTime={date}>{localized}</time>);
 };
 
 export const DateTime = styled(PureDateTime)`
