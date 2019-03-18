@@ -28,6 +28,7 @@ export const NavLink = styled(PureNavLink).attrs({
 })`
   color: ${({ theme }) => theme.primary2};
   display: inline-block;
+  margin-right: ${({ theme }) => theme.spacing}px;
   padding: ${({ theme }) => theme.spacing}px;
   text-decoration: none;
 

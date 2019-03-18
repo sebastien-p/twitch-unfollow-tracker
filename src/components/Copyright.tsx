@@ -25,5 +25,9 @@ export const Copyright = styled(PureCopyright)`
   ${Header} & {
     color: ${({ theme }) => theme.secondary1};
     padding: 0;
+
+    @media (max-width: ${({ theme }) => theme.breakpoint}px) {
+      display: none;
+    }
   }
 `;

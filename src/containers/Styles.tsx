@@ -10,6 +10,7 @@ type Theme = {
   primary2: string;
   secondary1: string;
   secondary2: string;
+  breakpoint: number;
 };
 
 declare module 'styled-components' {
@@ -54,7 +55,8 @@ const theme: Theme = {
   primary1: '#2f2e35',
   primary2: '#7e8083',
   secondary1: '#eaebe5',
-  secondary2: '#cfd0cd'
+  secondary2: '#cfd0cd',
+  breakpoint: 460
 };
 
 export const Styles: FunctionComponent = ({ children }) => (

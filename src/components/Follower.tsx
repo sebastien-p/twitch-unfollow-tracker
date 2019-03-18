@@ -21,6 +21,7 @@ export const Follower = styled(PureFollower)`
   color: ${({ theme }) => theme.primary1};
   display: block;
   padding: ${({ theme }) => theme.spacing * 2}px;
+  padding-right: ${({ theme }) => theme.spacing * 4}px;
   position: relative;
   text-decoration: none;
 
