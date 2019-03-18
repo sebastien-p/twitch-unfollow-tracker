@@ -12,7 +12,7 @@ const PureDateTime: FunctionComponent<DateTimeProps> = (
 ) => {
   const localized: string = useDateLocalization(date);
 
-  return (<time  {...props} dateTime={date}>{localized}</time>);
+  return (<time {...props} dateTime={date}>{localized}</time>);
 };
 
 export const DateTime = styled(PureDateTime)`

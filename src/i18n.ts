@@ -34,6 +34,6 @@ export function useDateLocalization(date: string): string {
 
   return useMemo(
     () => formatter.format(new Date(date)),
-    [date, formatter]
+    [formatter, date]
   );
 }
