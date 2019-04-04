@@ -11,7 +11,7 @@ export type FollowerProps = JSX.IntrinsicElements['a'] & {
 const PureFollower: FunctionComponent<FollowerProps> = (
   { children, href, data: { name, date }, ...props }
 ) => (
-  <a {...props} href={`https://twitch.tv/${name}`}>
+  <a {...props} href={`https://twitch.tv/${name}`} target="_blank">
     {name}
     <DateTime date={date}/>
   </a>
