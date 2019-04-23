@@ -1,4 +1,4 @@
-import ky, { Options } from 'ky';
+import ky, { Options } from 'ky/umd';
 import differenceBy from 'lodash.differenceby';
 
 import { UserId, Follower } from './database';

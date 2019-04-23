@@ -6,17 +6,18 @@
     "@types/jest": "24.0.11",
     "@types/lodash.differenceby": "4.8.6",
     "@types/node": "10.12.23",
-    "@types/react": "16.8.13",
+    "@types/react": "16.8.14",
     "@types/react-dom": "16.8.4",
-    "@types/react-redux": "7.0.6",
+    "@types/react-redux": "7.0.8",
     "@types/react-router": "4.4.5",
     "@types/react-router-dom": "4.3.2",
     "@types/react-virtualized-auto-sizer": "1.0.0",
-    "@types/react-window": "1.7.1",
+    "@types/react-window": "1.8.0",
     "@types/styled-components": "4.1.14",
     "@types/yup": "0.26.12",
+    "cross-env": "5.2.0",
     "now": "13.1.3",
-    "react-scripts": "2.1.8",
+    "react-scripts": "3.0.0",
     "typescript": "3.3.3",
     "typescript-styled-plugin": "0.14.0"
   },
@@ -27,11 +28,11 @@
     "i18next": "15.0.9",
     "i18next-browser-languagedetector": "3.0.1",
     "i18next-xhr-backend": "2.0.1",
-    "ky": "0.9.1",
+    "ky": "0.10.0",
     "lodash.differenceby": "4.8.0",
     "react": "16.8.6",
     "react-dom": "16.8.6",
-    "react-i18next": "10.7.0",
+    "react-i18next": "10.8.1",
     "react-redux": "7.0.2",
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
@@ -48,17 +49,24 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:once": "npm test -- --coverage",
+    "test:once": "cross-env CI=true npm test",
     "now-build": "npm run build",
-    "deploy": "now"
+    "deploy": "npm run test:once && now"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
