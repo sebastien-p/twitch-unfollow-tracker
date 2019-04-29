@@ -16,7 +16,7 @@ export type UnfollowersProps = StateProps & DispatchProps;
 const PureUnfollowers: FunctionComponent<UnfollowersProps> = (
   { loadUnfollowers, unfollowers }
 ) => {
-  useEffect(() => { loadUnfollowers(); }, []);
+  useEffect(() => { loadUnfollowers(); }, [loadUnfollowers]);
 
   return (<FollowersList data={unfollowers} i18n='unfollowers'/>);
 };

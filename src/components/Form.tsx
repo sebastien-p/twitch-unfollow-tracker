@@ -34,7 +34,7 @@ export const Form: FunctionComponent<FormProps> = (
         <Button type='submit' i18n={button} disabled={!isValid} accent/>
       </StyledForm>
     ),
-    [children]
+    [children, button]
   );
 
   return (<Formik {...props} render={render}/>);

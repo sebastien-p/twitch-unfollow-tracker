@@ -49,7 +49,7 @@ const Global = createGlobalStyle`
 
 const theme: Theme = {
   spacing: 10,
-  font: 'Helvetica Neue, Helvetica, Arial, sans- serif',
+  font: 'Helvetica Neue, Helvetica, Arial, sans-serif',
   accent1: '#f4a217',
   accent2: '#a3572b',
   primary1: '#2f2e35',

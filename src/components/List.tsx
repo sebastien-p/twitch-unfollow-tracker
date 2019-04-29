@@ -1,4 +1,6 @@
-import React, { FunctionComponent, ReactNode, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, ReactNode } from 'react';
+import AutoSizer, { AutoSizerProps } from 'react-virtualized-auto-sizer';
+import { FixedSizeList } from 'react-window';
 import styled from 'styled-components/macro';
 
 import { ListItem } from './ListItem';
@@ -9,25 +11,34 @@ export type ListProps<T = any> = {
   items: T[];
 };
 
-type Render<T = any> = (item: T, index: number) => ReactNode;
+type Render = AutoSizerProps['children'];
 
-const StyledList = styled.ul`
-  list-style: none;
-  margin: 0;
-  padding: 0;
+const StyledList = styled(FixedSizeList).attrs({
+  innerElementType: 'ul'
+})`
+  ${({ innerElementType }) => innerElementType} {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
 `;
 
-export const List: FunctionComponent<ListProps> = (
-  { children, items }
-) => {
-  const render: Render = useCallback<Render>(
-    (item, index) => <ListItem key={index}>{children(item)}</ListItem>,
-    [children]
+export const List: FunctionComponent<ListProps> = props => {
+  const { children, items } = props;
+
+  const render: Render = useCallback<Render>( // FIXME: magic value 77
+    ({ height, width }) => (
+      <StyledList
+        itemCount={items.length}
+        itemData={props}
+        height={height}
+        width={width}
+        itemSize={77}>
+        {ListItem}
+      </StyledList>
+    ),
+    [children, items]
   );
 
-  return (
-    items.length
-      ? <StyledList>{items.map(render)}</StyledList>
-      : <Empty/>
-  );
+  return (items.length ? <AutoSizer>{render}</AutoSizer> : <Empty/>);
 };

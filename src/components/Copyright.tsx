@@ -11,7 +11,7 @@ const PureCopyright: FunctionComponent<CopyrightProps> = (
 ) => {
   const [t] = useTranslation();
 
-  return (<p {...props}>{t('copyright')}</p>)
+  return (<p {...props}>{t('copyright')}</p>);
 }
 
 export const Copyright = styled(PureCopyright)`
