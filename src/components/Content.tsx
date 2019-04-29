@@ -7,7 +7,7 @@ export type ContentProps = {
 export const Content = styled.main<ContentProps>`
   background: ${({ theme }) => theme.secondary1};
   box-shadow: ${({ theme: { spacing, primary2 } }) => {
-    return `0 ${spacing / 2}px ${spacing * 3}px ${primary2}`
+    return `0 ${spacing / 2}px ${spacing * 3}px ${primary2}`;
   }};
   flex: ${({ flex }) => flex ? 1 : 0} 1 auto;
   overflow: auto;

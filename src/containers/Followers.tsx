@@ -16,7 +16,7 @@ export type FollowersProps = StateProps & DispatchProps;
 const PureFollowers: FunctionComponent<FollowersProps> = (
   { loadFollowers, followers }
 ) => {
-  useEffect(() => { loadFollowers(); }, []);
+  useEffect(() => { loadFollowers(); }, [loadFollowers]);
 
   return (<FollowersList data={followers} i18n='followers'/>);
 };
