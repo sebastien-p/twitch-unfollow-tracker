@@ -27,7 +27,7 @@ export type State = {
   unfollowers: Follower[];
 };
 
-const persistConfig: PersistConfig = {
+const persistConfig: PersistConfig<State> = {
   storage,
   whitelist: ['user'],
   key: `${name}.settings`
