@@ -1,6 +1,6 @@
 import React, { FunctionComponent, Fragment, useCallback } from 'react';
 
-import { Follower as FollowerModel } from '../services/database';
+import { Follower as FollowerModel } from '../services/twitch';
 import { ListProps, List } from './List';
 import { Follower } from './Follower';
 import { Content } from './Content';

@@ -1,15 +1,7 @@
 import Dexie from 'dexie';
 
 import { name } from '../../package.json';
-import { TwitchUser, TwitchFollower } from './twitch.js';
-
-export type UserId = TwitchUser['id'];
-
-export type Follower = {
-  date: TwitchFollower['followed_at'];
-  name: TwitchFollower['from_name'];
-  id: UserId;
-};
+import { UserId, Follower } from './twitch.js';
 
 class Database extends Dexie {
   readonly followers!: Dexie.Table<Follower, UserId>;
@@ -48,4 +40,4 @@ class Database extends Dexie {
   }
 }
 
-export const database: Database = new Database();
+export const db: Database = new Database();

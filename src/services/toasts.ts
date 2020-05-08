@@ -29,7 +29,7 @@ export async function showToast(
 export function withToasts<
   T extends (...args: any[]) => Promise<U> | U,
   U = any
->(callback: T) {
+>(callback: T): (...args: Parameters<T>) => Promise<U> {
   return async (...args: Parameters<T>): Promise<U> => {
     const hide: HideToastFunction = await showToast('loading', 'top-center');
 

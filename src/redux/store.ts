@@ -6,35 +6,33 @@ import {
   PersistConfig,
   Persistor,
   persistReducer,
-  persistStore
+  persistStore,
+
 } from 'redux-persist';
 
 import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import { name } from '../../package.json';
-import { Follower } from '../services/database';
+import { User, Follower, getLoggedInUser } from '../services/twitch';
 import * as reducers from './reducers';
 
-type User = {
-  clientId: string;
-  name: string;
-  id: string;
-};
-
-export type State = {
+export interface State {
   user: User | null;
   followers: Follower[];
   unfollowers: Follower[];
-};
+}
 
 const persistConfig: PersistConfig<State> = {
   storage,
   whitelist: ['user'],
-  key: `${name}.settings`
+  key: `${name}.settings`,
+  stateReconciler: autoMergeLevel2
 };
 
 export const store: Store<State> = createStore(
   persistReducer(persistConfig, combineReducers(reducers)),
+  { user: getLoggedInUser() },
   composeWithDevTools(applyMiddleware(thunk))
 );
 

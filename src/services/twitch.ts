@@ -1,91 +1,134 @@
-import ky, { Options } from 'ky/umd';
-import differenceBy from 'lodash.differenceby';
+import ky from 'ky/umd';
 
-import { UserId, Follower } from './database';
+export type AccessToken = string;
+export type UserName = string;
+export type UserId = string;
 
-export interface TwitchUser {
-  id: string;
-  login: string;
-}
-
-export interface TwitchFollower {
-  followed_at: string;
-  from_id: TwitchUser['id'];
-  from_name: TwitchUser['login'];
-}
-
-interface TwitchResponse<T extends {}> {
+interface Response<T extends {}> {
   data: T[];
 }
 
-interface TwitchPaginatedResponse<T> extends TwitchResponse<T> {
+interface PaginatedResponse<T> extends Response<T> {
   total: number;
   pagination: {
     cursor: string;
   };
 }
 
-export type TwitchClientId = string;
-
-function get<T, U extends TwitchResponse<T> = TwitchResponse<T>>(
-  url: string,
-  clientId: TwitchClientId,
-  searchParams?: Options['searchParams']
-): Promise<U> {
-  return ky.get(
-    `https://api.twitch.tv/helix/${url}`,
-    { headers: { 'Client-ID': clientId }, searchParams }
-  ).json<U>();
+interface APIUser {
+  preferred_username: UserName;
+  sub: UserId;
 }
 
-export async function getUserId(
-  clientId: TwitchClientId,
-  login: TwitchUser['login']
-): Promise<UserId> {
-  const { data: [user] } = await get<TwitchUser>('users', clientId, { login });
-  return user && user.id;
+interface APIFollower {
+  followed_at: string;
+  from_name: UserName;
+  from_id: UserId;
 }
 
-function toFollower(
-  { followed_at, from_name, from_id }: TwitchFollower
-): Follower {
-  return { date: followed_at, name: from_name, id: from_id };
+export interface User {
+  name: APIUser['preferred_username'];
+  id: APIUser['sub'];
+  token: AccessToken;
 }
+
+export interface Follower {
+  date: APIFollower['followed_at'];
+  name: APIFollower['from_name'];
+  id: APIFollower['from_id'];
+}
+
+const clientId: string = 'e100ogb2kvrm8frzn5e5phnyzj95if';
 
 async function get100Followers(
-  clientId: TwitchClientId,
-  to_id: UserId,
-  cursor: string = ''
-): Promise<TwitchPaginatedResponse<Follower>> {
-  const {
-    data,
-    ...response
-  } = await get<TwitchFollower, TwitchPaginatedResponse<TwitchFollower>>(
-    'users/follows',
-    clientId,
-    { after: cursor, first: 100, to_id }
+  token: AccessToken,
+  userId: UserId,
+  after: string = ''
+): Promise<PaginatedResponse<Follower>> {
+  const { data, ...response } = await ky
+    .get(`https://api.twitch.tv/helix/users/follows`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Client-ID': clientId
+      },
+      searchParams: { after, first: 100, to_id: userId }
+    })
+    .json<PaginatedResponse<APIFollower>>();
+
+  return {
+    ...response,
+    data: data.map(({ followed_at, from_name, from_id }) => ({
+      date: followed_at,
+      name: from_name,
+      id: from_id
+    }))
+  };
+}
+
+export function getLoginURL(): string {
+  const params: URLSearchParams = new URLSearchParams({
+    claims: JSON.stringify({ id_token: { preferred_username: null } }),
+    redirect_uri: window.location.origin,
+    response_type: 'token id_token',
+    client_id: clientId,
+    scope: 'openid'
+  });
+
+  return `https://id.twitch.tv/oauth2/authorize?${params}`;
+}
+
+export function getLoggedInUser(): User | null {
+  const params: URLSearchParams = new URLSearchParams(
+    window.location.hash.replace(/^#+/, '')
   );
 
-  return { ...response, data: data.map(toFollower) };
+  const accessToken: string | null = params.get('access_token');
+  const idToken: string | null = params.get('id_token');
+
+  if (accessToken && idToken) {
+    try {
+      const { sub, preferred_username }: APIUser = JSON.parse(
+        atob(idToken.split('.')[1])
+      );
+
+      if (sub && preferred_username) {
+        return { name: preferred_username, id: sub, token: accessToken };
+      }
+    } catch (error) {}
+  }
+
+  return null;
 }
 
 export async function getFollowers(
-  clientId: TwitchClientId,
+  token: AccessToken,
   id: UserId,
-  current: ReturnType<typeof get100Followers> = get100Followers(clientId, id)
+  state: ReturnType<typeof get100Followers> = get100Followers(token, id)
 ): Promise<Follower[]> {
-  const { data, total, pagination: { cursor } } = await current;
-  if (data.length >= total) { return data; }
+  const {
+    data,
+    total,
+    pagination: { cursor }
+  } = await state;
 
-  const followers = await get100Followers(clientId, id, cursor);
-  followers.data.push(...data);
+  if (data.length >= total) {
+    return data;
+  }
 
-  return getFollowers(clientId, id, Promise.resolve(followers));
+  return getFollowers(
+    token,
+    id,
+    get100Followers(token, id, cursor).then(response => {
+      response.data.push(...data);
+      return response;
+    })
+  );
 }
 
-export function getUnfollowers(
-  previousList: Follower[],
-  nextList: Follower[]
-): Follower[] {
-  return differenceBy(previousList, nextList, ({ id }) => id);
+export function revokeToken(token: AccessToken): Promise<void> {
+  return ky
+    .post('https://id.twitch.tv/oauth2/revoke', {
+      searchParams: { client_id: clientId, token }
+    })
+    .json<void>();
 }

@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import styled from 'styled-components/macro';
 
-import { Follower as FollowerModel } from '../services/database';
+import { Follower as FollowerModel } from '../services/twitch';
 import { DateTime } from './DateTime';
 
 export type FollowerProps = JSX.IntrinsicElements['a'] & {
