@@ -1,13 +1,10 @@
 {
   "login": "Connexion",
+  "twitch": "Connexion avec Twitch",
   "logout": "Déconnexion",
   "reload": "Recharger",
   "empty": "Aucune donnée...",
   "loading": "Chargement des données...",
   "success": "Données chargées avec succès",
-  "error": "Erreur lors du chargement des données",
-  "required": "Le champ '$t({{replace}})' est obligatoire",
-  "clientIdHelp": "fourni par l'API Twitch, voir la doc",
-  "name": "Nom d'utilisateur",
-  "nameHelp": "votre nom d'utilisateur sur Twitch"
+  "error": "Erreur lors du chargement des données"
 }

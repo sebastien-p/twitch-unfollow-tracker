@@ -82,6 +82,8 @@ export function getLoggedInUser(): User | null {
     window.location.hash.replace(/^#+/, '')
   );
 
+  window.location.hash = ''; // TODO: find a better approach...
+
   const accessToken: string | null = params.get('access_token');
   const idToken: string | null = params.get('id_token');
 
@@ -102,8 +104,10 @@ export function getLoggedInUser(): User | null {
 
 export async function getFollowers(
   token: AccessToken,
-  id: UserId,
-  state: ReturnType<typeof get100Followers> = get100Followers(token, id)
+  userId: UserId,
+  state:
+    | PaginatedResponse<Follower>
+    | Promise<PaginatedResponse<Follower>> = get100Followers(token, userId)
 ): Promise<Follower[]> {
   const {
     data,
@@ -115,20 +119,14 @@ export async function getFollowers(
     return data;
   }
 
-  return getFollowers(
-    token,
-    id,
-    get100Followers(token, id, cursor).then(response => {
-      response.data.push(...data);
-      return response;
-    })
-  );
+  state = await get100Followers(token, userId, cursor);
+  state.data.push(...data);
+
+  return getFollowers(token, userId, state);
 }
 
-export function revokeToken(token: AccessToken): Promise<void> {
-  return ky
-    .post('https://id.twitch.tv/oauth2/revoke', {
-      searchParams: { client_id: clientId, token }
-    })
-    .json<void>();
+export async function revokeAccessToken(token: AccessToken): Promise<void> {
+  await ky.post('https://id.twitch.tv/oauth2/revoke', {
+    searchParams: { client_id: clientId, token }
+  });
 }

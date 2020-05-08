@@ -1,7 +1,8 @@
+import { HTTPError } from 'ky/umd';
 import { ThunkAction } from 'redux-thunk';
 import differenceBy from 'lodash.differenceby';
 
-import { Follower, getFollowers, revokeToken } from '../services/twitch';
+import { Follower, getFollowers, revokeAccessToken } from '../services/twitch';
 import { withToasts } from '../services/toasts';
 import { db } from '../services/database';
 
@@ -59,7 +60,20 @@ const fetchFollowers: Thunk<
     return;
   }
 
-  const followers: Follower[] = await getFollowers(user.token, user.id);
+  let followers: Follower[];
+
+  try {
+    followers = await getFollowers(user.token, user.id);
+  } catch (error) {
+    if (
+      error instanceof HTTPError &&
+      /^40[13]$/.test(error.response.status.toString())
+    ) {
+      dispatch(logout());
+    }
+
+    throw error;
+  }
 
   await db.resetTable(db.followers, followers);
   await dispatch(syncFollowers());
@@ -91,9 +105,16 @@ export const fetchUnfollowers: Thunk<
 
 export const logout: Thunk<
   typeof setUser | typeof setFollowers | typeof setUnfollowers
-> = () => async dispatch => {
+> = () => async (dispatch, getState) => {
+  const { user } = getState();
+
+  if (!user) {
+    return;
+  }
+
   await db.clear();
   dispatch(setUser(null));
   dispatch(setFollowers([]));
   dispatch(setUnfollowers([]));
+  revokeAccessToken(user.token);
 };

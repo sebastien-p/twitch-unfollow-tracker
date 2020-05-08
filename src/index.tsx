@@ -5,8 +5,6 @@ import './i18n';
 import { App } from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
-// TODO: cleanup + login page + handle auth errors/expiration + logout revoke?
-
 ReactDOM.render(<App/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

@@ -45,6 +45,14 @@ const Global = createGlobalStyle`
     display: flex;
     flex-direction: column;
   }
+
+  .centered {
+    left: 50%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 const theme: Theme = {
